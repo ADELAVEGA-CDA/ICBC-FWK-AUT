@@ -42,7 +42,7 @@ public class Hooks {
 	
 	@After(order=1)
 	public void afterScenario(Scenario scenario) {
-		if (scenario.isFailed()) { /*
+		if (scenario.isFailed()) {
 			String screenShot=scenario.getName().replaceAll(" ","_");System.out.println(screenShot);
 			Date date=new Date();
 			DateFormat formatDate=new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -54,5 +54,5 @@ public class Hooks {
 				Files.copy(sourcePath,destinationPath);   
 				Reporter.addScreenCaptureFromPath(destinationPath.toString());
 			} catch (IOException e) {
-				System.out.println(e);}*/}}
+				System.out.println(e);}}}
 }

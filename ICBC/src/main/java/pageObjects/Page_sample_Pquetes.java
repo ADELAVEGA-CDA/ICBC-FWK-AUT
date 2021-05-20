@@ -6,9 +6,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
-public class PageExampleCheck {
+public class Page_sample_Pquetes {
 
-	public PageExampleCheck(WebDriver driver) {
+	public Page_sample_Pquetes(WebDriver driver) {
 		PageFactory.initElements(driver,this);
 	}
 	// FIND BY HOW AND USING

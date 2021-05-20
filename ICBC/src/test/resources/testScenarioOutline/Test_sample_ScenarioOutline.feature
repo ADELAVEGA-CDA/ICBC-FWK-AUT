@@ -4,18 +4,21 @@ Feature: Prueba de compra
   Quiero realizar una busqueda y encontrar un producto
   Para agregarlo a mi cesta de compra
 	
-	  @tag1 @e2e @e2e_1
-	  Scenario: realizar una compra
-	    Given accedo a la pagina principal
-	    And busco un producto por "white" como descripción
-	    And hago clic en el boton aceptar
-	    When selecciono la ficha 1 de la lista
-	    And selecciono la opcion 1 del dropdown "color"
-	    And selecciono la opcion 1 del dropdown "talle"
-	    And hago clic en el boton "agregar"
-	    Then se agrega al carrito de compra un producto
+	  @Home @Outline @URL @OutURL
+	  Scenario Outline: accedo al homebanking individuos a realizar una busqueda
+    Given accedo al homebanking individuo
+    When hago clic en el menú Personas de la página Personas
+    And hago clic en la solapa Productos y Servicios de la página Personas
+    And hago clic en la opción Paquetes de la página Personas
+    And accedo a los productos y servicios de la página Paquetes
+    And hago clic en el icono Lupa de la página Paquetes
+    And ingreso la opción <opcion> para la búsqueda
+    Then obtengo <resultados> coincidencias como resultado de la búsqueda
+    Examples:
+    |opcion			|resultados	|
+    |"premium"	|"518"			|
 	
-	  @tag1 @e2e @e2e_2
+	  @Home @Outline @Title @OutTitle
 	  Scenario Outline: realizar una compra
 	    Given accedo a la pagina principal
 	    And busco un producto por <descripcion> como descripción

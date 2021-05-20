@@ -7,11 +7,11 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import pageObjects.PageExampleE2E;
 
-public class Steps_sample_Other {
+public class Steps_sample_ScenarioOutline {
 
 	TestContext tstContext;
 	PageExampleE2E e2e;
-	public Steps_sample_Other(TestContext context) {
+	public Steps_sample_ScenarioOutline(TestContext context) {
 		tstContext=context;
 		e2e=tstContext.getPageObjMng().getEnd2End();
 	}
