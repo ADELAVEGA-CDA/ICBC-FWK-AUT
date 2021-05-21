@@ -10,25 +10,35 @@ Feature: Prueba de compra
     When hago clic en el menú Personas de la página Personas
     And hago clic en la solapa Productos y Servicios de la página Personas
     And hago clic en la opción Paquetes de la página Personas
-    And accedo a los productos y servicios de la página Paquetes
     And hago clic en el icono Lupa de la página Paquetes
     And ingreso la opción <opcion> para la búsqueda
     Then obtengo <resultados> coincidencias como resultado de la búsqueda
     Examples:
     |opcion			|resultados	|
     |"premium"	|"518"			|
-	
-	  @Home @Outline @Title @OutTitle
-	  Scenario Outline: realizar una compra
-	    Given accedo a la pagina principal
-	    And busco un producto por <descripcion> como descripción
-	    And hago clic en el boton aceptar
-	    When selecciono la ficha <ficha> de la lista
-	    And selecciono la opcion <dropOption1> del dropdown <dropName1>
-	    And selecciono la opcion <dropOption2> del dropdown <dropName2>
-	    And hago clic en el boton <boton>
-	    Then se agrega al carrito de compra un producto
-	    Examples:
-	    |descripcion	|ficha	|dropOption1	|dropName1	|dropOption2	|dropName2	|boton			|
-	    |"white"			|1			|1						|"color"		|1						|"talle"		|"agregar"	|
+   
+   
+   
+   
+   
+   
+   
+    	
+	  @Home2 @Outline2 @Title @OutTitle
+	  Scenario Outline: accedo al homebanking individuos para contactarme con un asesor
+    Given accedo al homebanking individuo
+    And hago clic en la opción Contactanos de la página Personas
+    And hago clic en la sopala Internet de la página Contactanos
+    And hago clic en el link Formulario Web de la página Contactanos
+    When hago clic en el botón "Servicios" de la página Gestión de reclamos
+    And hago clic en el botón "Otros reclamos" de la página Gestión de reclamos
+    When ingreso <detalle> como detalle de contacto de la página Gestión de reclamos
+    And hago clic en el botón "Continuar" de la página Gestión de reclamos
+    And completo <nombre>, mi <DNI>, mi <email>, mi <Teléfono> como datos de contacto
+    And hago clic en el botón "Enviar" de la página Gestión de reclamos
+    Then obtengo un mensaje de confirmación
+    Examples:
+    |detalle						|nombre					|DNI				|email								|Teléfono			|
+    |"Consultas varias"	|"Anibal"				|"5000000"	|"anibal@prueba.com"	|"1143214321"	|
+    
     

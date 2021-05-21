@@ -29,13 +29,14 @@ public class BrowsersMng {
 		waitTime=FileReaderMng.getInstance().getConfigReader().getWaitTime();}
 	
 	public WebDriver getDrv() {
+		if(driver==null) {
 		if(ambType==Environment.LOCAL){driver=initDrv();System.out.println("__getDrv__local_environment__");}
 		else if(ambType==Environment.LOCAL_API)System.out.println("__getDrv__api_environment__local_api__");
 		else if(ambType==Environment.LOCAL_HEADLESS){driver=initDrv();System.out.println("__getDrv__local_headless_environment__");}
 		else if(ambType==Environment.REMOTO){driver=initDrv();System.out.println("__getDrv__remote_environment__");}
 		else if(ambType==Environment.REMOTO_API)System.out.println("__getDrv__api_environment__remoto_api__");
 		else if(ambType==Environment.REMOTO_HEADLESS){System.out.println("__getDrv__remote_headless_environment__");}
-		else throw new RuntimeException("__error_getDrv_Verify__");
+		else throw new RuntimeException("__error_getDrv_Verify__");}
 		return driver;}
 	
 	private WebDriver initDrv() {

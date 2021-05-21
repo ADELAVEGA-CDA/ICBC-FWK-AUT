@@ -125,4 +125,14 @@ public class GlobalParams {
 		// RETURN RESPONSE
 		return _response;
 	}
+	
+	public int responseCode() {
+		System.out.println(this.getURL());
+		RestAssured.baseURI = "https://demoqa.com";
+		RequestSpecification request=RestAssured.given();
+		request.header("Content-Type","application/json");
+		Response response=request.body("{ \"userName\": "+this.getString_A()+", \"password\": "+this.getString_B()+"}")
+				.post(this.getAPI());
+		return response.getStatusCode();
+	}
 }

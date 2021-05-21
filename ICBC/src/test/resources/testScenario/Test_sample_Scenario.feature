@@ -5,7 +5,7 @@ Feature: Ingresar al homebanking personas a buscar un producto en los ofrecidos 
   Para encontrar los productos ofrecidos por ICBC
 
   @Home @URL @Scenario @ScenURL
-  Scenario: acceso al homebanking individuos
+  Scenario: accedo al homebanking individuos
     Given accedo al homebanking individuo
     When hago clic en el menú Personas de la página Personas
     And hago clic en la solapa Productos y Servicios de la página Personas
@@ -13,7 +13,7 @@ Feature: Ingresar al homebanking personas a buscar un producto en los ofrecidos 
     Then accedo a los productos y servicios de la página Paquetes
 
   @Home @Title @Scenario @ScenTitle
-  Scenario: acceso al homebanking individuos
+  Scenario: acceso al homebanking individuos y consulto paquetes
     Given accedo al homebanking individuo
     When hago clic en el menú Personas de la página Personas
     And hago clic en la solapa Productos y Servicios de la página Personas

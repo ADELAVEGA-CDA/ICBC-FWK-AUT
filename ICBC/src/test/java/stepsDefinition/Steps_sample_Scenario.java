@@ -5,12 +5,12 @@ import context.TestContext;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import pageObjects.Page_sample_Home;
+import pageObjects.Page_sample_Scenario;
 
 public class Steps_sample_Scenario {
 
 	TestContext tst;
-	Page_sample_Home home;
+	Page_sample_Scenario home;
 	public Steps_sample_Scenario(TestContext context) {
 		tst=context;
 		home=tst.getPageObjMng().getHome();
@@ -51,6 +51,7 @@ public class Steps_sample_Scenario {
 	public void accedo_a_de_la_página_Paquetes(String title) throws Throwable {
 	    // 
 		Assert.assertEquals(title, home.get_Title());
+		Assert.assertEquals("No coincide los titulos. Verificar. ", title, home.get_Title());
 	}
 	
 	@Given("^accedo a la pagina principal$")
