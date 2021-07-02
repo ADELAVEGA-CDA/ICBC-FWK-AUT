@@ -1,7 +1,8 @@
 
 Feature: Prueba de API
 
-  @api
+
+  @api @ApiToken
   Scenario Outline: Se realiza una consulta a una API sin certificado
 		Given accedo a la url <url>
 		And tengo el path de la api <api>
@@ -12,6 +13,33 @@ Feature: Prueba de API
     Examples: 
     |url 	 														|api 												 |user					|pass				 |parametros  	|header1  			|header2  					|codigo |
     |"https://bookstore.toolsqa.com"  |"/Account/v1/GenerateToken" |"TOOLSQA-Test"|"Test@@123" |"parameters" 	|"Content-Type" |"application/json" |302		|
+
+
+
+
+
+
+
+
+
+
+
+
+  @api @apiAutorizacion
+  Scenario Outline: Se realiza una consulta a una API sin certificado
+		Given accedo a la url <url> de autorización
+		And tengo el path de la api <api> de autorización
+		When indico los datos para <usuario> y <clave> del body de autorización
+		Then obtengo el codigo <codigo> como respuesta para autorización
+    Examples: 
+    |url 	 										|api 											 	|usuario				|clave			 |codigo |
+    |"https://demoqa.com"  		|"/Account/v1/Authorized" 	|"TOOLSQA-Test"	|"Test@@123" |200		|
+
+
+
+
+
+
 
 
   @api

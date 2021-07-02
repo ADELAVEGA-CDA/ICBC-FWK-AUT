@@ -11,16 +11,50 @@ import base.GlobalParams;
 import context.TestContext;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 
 
 public class Steps_sample_API {
 	
-	TestContext tstContext;
+	TestContext tst;
 	GlobalParams param;
 	public Steps_sample_API(TestContext context) {
-		tstContext=context;
-		param=tstContext.getPageObjMng().getGlobalParams();}
+		tst=context;
+		param=tst.getPageObjMng().getGlobalParams();}
 
+	@Given("^accedo a la url \"([^\"]*)\" de autorización$")
+	public void accedo_a_la_url_de_autorización(String _url) throws Throwable {
+	    // 
+		param.setURL(_url);
+	}
+
+	@Given("^tengo el path de la api \"([^\"]*)\" de autorización$")
+	public void tengo_el_path_de_la_api_de_autorización(String _api) throws Throwable {
+	    // 
+		param.setAPI(_api);
+	}
+
+	@When("^indico los datos para \"([^\"]*)\" y \"([^\"]*)\" del body de autorización$")
+	public void indico_los_datos_para_y_del_body_de_autorización(String _user, String _pass) throws Throwable {
+	    // 
+		param.setString_A(_user);
+		param.setString_B(_pass);
+	}
+
+	@Then("^obtengo el codigo (\\d+) como respuesta para autorización$")
+	public void obtengo_el_codigo_como_respuesta_para_autorización(int _code) throws Throwable {
+	    // 
+		RestAssured.baseURI="https://demoqa.com";
+		RequestSpecification request=RestAssured.given();
+		request.header("accept","application/json").header("Content-Type","application/json");
+		Response response=request.body("{ \"userName\": "+"TOOLSQA-Test"+", \"password\": "+"Test@@123"+"}")
+				.post("/Account/v1/Authorized");
+		System.out.println(response.getStatusCode());
+	}
+	
+	
 	@Given("^accedo a la url \"([^\"]*)\"$")
 	public void accedo_a_la_url(String url) throws Throwable {
 		param.setURL(url);System.out.println("Accedo a la url "+param.getURL());

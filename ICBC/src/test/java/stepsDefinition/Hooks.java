@@ -43,12 +43,12 @@ public class Hooks {
 	@After(order=1)
 	public void afterScenario(Scenario scenario) {
 		if (scenario.isFailed()) {
-			String screenShot=scenario.getName().replaceAll(" ","_");System.out.println(screenShot);
+			String screenShot=scenario.getName().replaceAll(" ","_");
 			Date date=new Date();
 			DateFormat formatDate=new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			String dateNow=formatDate.format(date);
 			String file=dateNow.replace("/","").replace(":","").replace(" ","_")+"_";
-			try {System.out.println(screenShot+" | "+screenshotPath);
+			try {
 				File sourcePath=((TakesScreenshot)tstContext.getWebDrvMng().getDrv()).getScreenshotAs(OutputType.FILE);
 				File destinationPath=new File(System.getProperty("user.dir")+"/target/reportesCucumber/reporteExtent/ScreenShot/"+file+screenShot+".png");
 				Files.copy(sourcePath,destinationPath);   

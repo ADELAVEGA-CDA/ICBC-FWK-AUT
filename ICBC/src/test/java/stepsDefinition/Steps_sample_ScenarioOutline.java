@@ -3,59 +3,96 @@ package stepsDefinition;
 import org.junit.Assert;
 
 import context.TestContext;
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import pageObjects.PageExampleE2E;
+import pageObjects.Page_sample_ScenarioOutline;
 
 public class Steps_sample_ScenarioOutline {
 
-	TestContext tstContext;
-	PageExampleE2E e2e;
+	TestContext tst;
+	Page_sample_ScenarioOutline personas;
 	public Steps_sample_ScenarioOutline(TestContext context) {
-		tstContext=context;
-		e2e=tstContext.getPageObjMng().getEnd2End();
+		tst=context;
+		personas=tst.getPageObjMng().getPersonas();
 	}
 	
-	@When("^selecciono la ficha (\\d+) de la lista$")
-	public void selecciono_la_ficha_de_la_lista(int ficha) throws Throwable {
-	    System.out.println("Cuando selecciono la ficha "+ficha+" de la lista");
-	    e2e.select_Card(ficha);
+	@When("^hago clic en el menu Personas de la pagina Persona$")
+	public void hago_clic_en_el_menu_Personas_de_la_pagina_Personas() throws Throwable {
+	    // 
+		personas.clic_Sueldo();
 	}
 	
-	@When("^selecciono la opcion (\\d+) del dropdown \"([^\"]*)\"$")
-	public void selecciono_la_opcion_del_dropdown(int index, String option) throws Throwable {
-		System.out.println("Cuando selecciono la opcion "+index+" del dropdown "+option+".");
-		switch (option.toUpperCase()) {
-			case "COLOR":
-				e2e.clickOn_dropdownColor();
-				e2e.clicOn_optionsColor();
-				break;
-			case "TALLE":
-				e2e.clickOn_dropdownSize();
-				e2e.clicOn_optionsSize();
-				break;
-			default:
-				System.out.println("Select options is invalid. Verify.");
-				break;
+	@When("^hago clic en el icono Lupa de la pagina Paquetes$")
+	public void hago_clic_en_el_icono_Lupa_de_la_pagina_Paquetes() throws Throwable {
+	    // 
+		personas.clic_Lupa();
+	}
+
+	@When("^ingreso la opcion \"([^\"]*)\" para la busqueda$")
+	public void ingreso_la_opcion_para_la_busqueda(String sBuscar) throws Throwable {
+	    // 
+		personas.enter_Busqueda(sBuscar);
+	}
+
+	@Then("^obtengo \"([^\"]*)\" coincidencias como resultado de la busqueda$")
+	public void obtengo_coincidencias_como_resultado_de_la_busqueda(String resultados) throws Throwable {
+	    // 
+		System.out.println(personas.get_Resultados());
+		Assert.assertEquals("No coinciden los valores. Verificar. ", resultados, personas.get_Resultados());
+	}
+	
+	@Given("^hago clic en la opcion Contactanos de la pagina Personas$")
+	public void hago_clic_en_la_opcion_Contactanos_de_la_pagina_Personas() throws Throwable {
+	    // 
+		personas.clic_Contactanos();
+	}
+
+	@Given("^hago clic en la sopala Internet de la pagina Contactanos$")
+	public void hago_clic_en_la_sopala_Internet_de_la_pagina_Contactanos() throws Throwable {
+	    // 
+		personas.clic_Internet();
+	}
+
+	@Given("^hago clic en el link Formulario Web de la pagina Contactanos$")
+	public void hago_clic_en_el_link_Formulario_Web_de_la_pagina_Contactanos() throws Throwable {
+	    // 
+		personas.clic_FormWeb();
+	}
+
+	@When("^hago clic en el boton \"([^\"]*)\" de la pagina Gestion de reclamos$")
+	public void hago_clic_en_el_boton_de_la_pagina_Gestion_de_reclamos(String boton) throws Throwable {
+	    // 
+		switch (boton) {
+		case "Servicios":
+			personas.clic_Servicos();
+			break;
+		case "Otros reclamos":
+			personas.clic_OtrosServicos();
+			break;
+		case "Continuar":
+			personas.clic_Continuar();
+			break;
+		case "Enviar":
+			personas.clic_Lupa();
+			break;
 		}
 	}
-	
-	@When("^hago clic en el boton \"([^\"]*)\"$")
-	public void hago_clic_en_el_boton(String boton) throws Throwable {
-		System.out.println("Cuando hago clic en el boton "+boton+".");
-		e2e.clicOn_imageSlide2();
-		e2e.clicOn_AddButton();
-	}
-	
-	@Then("^se agrega al carrito de compra un producto$")
-	public void se_agrega_al_carrito_de_compra_un_producto() throws Throwable {
-		String _expected="Cart(1)"; 
-		System.out.println("Entonces se agrega al carrito de compra un producto: "+_expected);/*
-		String _obtained=e2e.getText_OnCart();
-		if(_obtained.contains(_expected)){System.out.println("Se verifico correctamente. Se obtuvo "+_obtained);}
-		else {Assert.assertEquals("ERROR",_expected,_obtained);} */
+
+	@When("^ingreso \"([^\"]*)\" como detalle de contacto de la pagina Gestion de reclamos$")
+	public void ingreso_como_detalle_de_contacto_de_la_pagina_Gestion_de_reclamos(String detalle) throws Throwable {
+	    // 
+		personas.enter_Detalle(detalle);
 	}
 
+	@When("^completo \"([^\"]*)\", mi \"([^\"]*)\", mi \"([^\"]*)\", mi \"([^\"]*)\" como datos de contacto$")
+	public void completo_mis_como_datos_de_contacto(String nombre, String dni, String email, String telefono) throws Throwable {
+	    // 
+	}
 
+	@Then("^obtengo un mensaje de confirmación$")
+	public void obtengo_un_mensaje_de_confirmación() throws Throwable {
+	    // 
+	}
 
 }
