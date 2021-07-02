@@ -18,7 +18,7 @@ import managers.FileReaderMng;
 @CucumberOptions(
 		features="./src/test/resources/",
 		glue={"stepsDefinition"},
-		tags={"@api3"},
+		tags={"@OutURL"},
 		plugin={"pretty","com.cucumber.listener.ExtentCucumberFormatter:",
 				"json:target/reportesCucumber/reporteJSON/rptJSON.json",
 		}

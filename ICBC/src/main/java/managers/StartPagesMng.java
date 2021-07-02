@@ -5,8 +5,8 @@ import org.openqa.selenium.WebDriver;
 import base.GlobalParams;
 import base.GlobalRest;
 import pageObjects.PageExampleE2E;
-import pageObjects.PageExampleHome;
-import pageObjects.PageExampleCheck;
+import pageObjects.Page_sample_Scenario;
+import pageObjects.Page_sample_ScenarioOutline;
 
 public class StartPagesMng {
 
@@ -16,14 +16,14 @@ public class StartPagesMng {
 	
 	// Initialization page
 	private PageExampleE2E end2end;
-	private PageExampleHome home;
-	private PageExampleCheck check;
+	private Page_sample_Scenario home;
+	private Page_sample_ScenarioOutline check;
 	public PageExampleE2E getEnd2End() {
 		return(end2end==null)?end2end=new PageExampleE2E(driver):end2end;}
-	public PageExampleHome getHome() {
-		return(home==null)?home=new PageExampleHome(driver):home;}
-	public PageExampleCheck getCheck() {
-		return(check==null)?check=new PageExampleCheck(driver):check;}
+	public Page_sample_Scenario getHome() {
+		return(home==null)?home=new Page_sample_Scenario(driver):home;}
+	public Page_sample_ScenarioOutline getPersonas() {
+		return(check==null)?check=new Page_sample_ScenarioOutline(driver):check;}
 	
 	// Initialization base
 	private GlobalParams params;
