@@ -40,6 +40,8 @@ public class Page_sample_ScenarioOutline {
 	private WebElement tbxDetalle;
 	@FindBy(how = How.CSS, using=".continue")
 	private WebElement btnContinuar;
+	@FindBy(how = How.CSS, using=".po-hea__submenu-link")
+	private WebElement btnSueldo;
 	
 	// USE DEFINED ELEMENT
 	public void enterName(String name) {
@@ -79,6 +81,9 @@ public class Page_sample_ScenarioOutline {
 	}
 	public void clic_Continuar() {
 		btnContinuar.click();
+	}
+	public void clic_Sueldo() {
+		btnSueldo.click();
 	}
 	
 }
