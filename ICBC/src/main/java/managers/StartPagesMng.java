@@ -14,7 +14,7 @@ public class StartPagesMng {
 	public StartPagesMng(WebDriver driver) {
 		this.driver=driver;}
 	
-	// Initialization page
+	// INIT PAGE 
 	private PageExampleE2E end2end;
 	private Page_sample_Scenario home;
 	private Page_sample_ScenarioOutline check;
@@ -25,7 +25,7 @@ public class StartPagesMng {
 	public Page_sample_ScenarioOutline getPersonas() {
 		return(check==null)?check=new Page_sample_ScenarioOutline(driver):check;}
 	
-	// Initialization base
+	// INIT BASE 
 	private GlobalParams params;
 	private GlobalRest rest;
 	public GlobalParams getGlobalParams() {

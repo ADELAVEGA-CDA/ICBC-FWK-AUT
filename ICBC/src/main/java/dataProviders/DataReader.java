@@ -18,6 +18,7 @@ public class DataReader {
 	public DataReader() {
 		dataList=getDataType();	}
 	
+	// DATA READER
 	private List<DataTypes> getDataType() {
 		Gson gson=new Gson();
 		BufferedReader bufferReader=null;
@@ -29,6 +30,7 @@ public class DataReader {
 		} finally {	try {if(bufferReader!=null)bufferReader.close();
 			} catch(IOException ignore) {}}}
 	
+	// DATA FOR NAME
 	public final DataTypes getDataByLastName(String lastname) {
 		return dataList.stream().filter(x->x.firstName.equalsIgnoreCase(lastname)).findAny().get();}
 	public final DataTypes getCustomerByFirstName(String firstname){

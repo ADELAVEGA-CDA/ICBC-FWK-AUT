@@ -15,6 +15,7 @@ public class ConfigReader {
 	private final String pathFile="configs\\config.properties";
 	private String message="__Error_with_the_file_or_the_value__Verify__>>_";
 	
+	// OPEN FILE 
 	public ConfigReader() {
 		BufferedReader lector;
 		try {
@@ -29,6 +30,7 @@ public class ConfigReader {
 			e.printStackTrace();
 			throw new RuntimeException(message+"_ConfigReader_method__");}}
 	
+	// GET DATA FROM FILE 
 	public String getDriverPath() {
 		String rutaCHR=property.getProperty("driverPath");
 		if(rutaCHR!=null) return rutaCHR;

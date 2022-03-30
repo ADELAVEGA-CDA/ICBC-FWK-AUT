@@ -26,7 +26,8 @@ public class BrowsersMng {
 		webDrv=FileReaderMng.getInstance().getConfigReader().getWebDriver();
 		webDrvPath=FileReaderMng.getInstance().getConfigReader().getDriverPath();
 		brwSize=FileReaderMng.getInstance().getConfigReader().getBrowserSize();
-		waitTime=FileReaderMng.getInstance().getConfigReader().getWaitTime();}
+		waitTime=FileReaderMng.getInstance().getConfigReader().getWaitTime();
+	}
 	
 	public WebDriver getDrv() {
 		if(driver==null) {
@@ -37,8 +38,10 @@ public class BrowsersMng {
 		else if(ambType==Environment.REMOTO_API)System.out.println("__getDrv__api_environment__remoto_api__");
 		else if(ambType==Environment.REMOTO_HEADLESS){System.out.println("__getDrv__remote_headless_environment__");}
 		else throw new RuntimeException("__error_getDrv_Verify__");}
-		return driver;}
+		return driver;
+	}
 	
+	// INIT DRIVERS
 	private WebDriver initDrv() {
 		switch(ambType) {
 			case LOCAL:driver=createLocal();System.out.println("__initDrv__create_local_drv__");
@@ -54,10 +57,12 @@ public class BrowsersMng {
 			case REMOTO_HEADLESS:System.out.println("__create_Drv__remoto_headless__");
 				break;
 			default:System.out.println("__verify__ambType_case__");}
-		return driver;}
+		return driver;
+	}
 	
 	private WebDriver createRemoto() { 
-		throw new RuntimeException("__verify__createRemoto_WebDriver__");}
+		throw new RuntimeException("__verify__createRemoto_WebDriver__");
+	}
 	
 	private WebDriver createLocal() {
 		switch(brwType) {
@@ -72,7 +77,8 @@ public class BrowsersMng {
 				break;
 			default:System.out.println("__verify__brwType_case__");}
 		if(brwSize)driver.manage().timeouts().implicitlyWait(waitTime,TimeUnit.SECONDS);
-		return driver;}
+		return driver;
+	}
 	
 	private WebDriver createLocalHeadless() {
 		switch(brwType) {
@@ -85,9 +91,12 @@ public class BrowsersMng {
 				driver=new ChromeDriver(chromeOptions);System.out.println("__driver_new_ChromeDriver_Headless__");
 				break;
 			default:System.out.println("__verify__brwType_Headless_case__");}
-		return driver;}
+		return driver;
+	}
 	
 	public void closeBrw() {
 		if(ambType==Environment.LOCAL_API||ambType==Environment.REMOTO_API)System.out.println("__closeBrw__without_browser__");
-		else {driver.close();driver.quit();}}
+		else {driver.close();driver.quit();}
+	}
+	
 }

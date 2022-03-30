@@ -11,6 +11,7 @@ public class FileReaderMng {
 	
 	private FileReaderMng() {}
 
+	// GET DATA 
 	public static FileReaderMng getInstance() {
 		return fileReader;}
 	public ConfigReader getConfigReader() {

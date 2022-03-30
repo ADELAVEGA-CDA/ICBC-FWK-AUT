@@ -20,12 +20,12 @@ public class GlobalRest {
 	
 	public Response response() {
 		
-		// CONECTION
+		// PARAMS CONECTION
 		System.out.println(param.getURL());
 		RestAssured.baseURI=param.getURL();
 		_request = RestAssured.given();
 		
-		// SET HEADER
+		// SET DATA HEADER
 		switch (param.getArrBidLenght()) {
 			case 1:
 				_request.header(param.getArrBid(0,0),param.getArrBid(0,1));

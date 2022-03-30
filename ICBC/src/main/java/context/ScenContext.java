@@ -12,6 +12,7 @@ public class ScenContext {
 	public ScenContext() {
 		scenContext=new HashMap<>();}
 	
+	// SET CONTEXT 
 	public void setContext(Context key, Object value) {
 		scenContext.put(key.toString(),value);}
 	public Object getContext(Context key) {

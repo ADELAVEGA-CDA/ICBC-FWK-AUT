@@ -17,7 +17,7 @@ public class GlobalParams {
 	public GlobalParams() {
 		tstContext=new TestContext();}
 	
-	// INPUT
+	// DATA INPUT
 	public void setString_A(String _stringA) {
 		tstContext.getScenarioContext().setContext(Context.DATA_INFO_A,_stringA);}
 	public void setString_B(String _stringB) {
@@ -41,7 +41,7 @@ public class GlobalParams {
 	public void setPARAMS(String _params) {
 		tstContext.getScenarioContext().setContext(Context.PARAM,_params);}
 	
-	// OUTPUT
+	// DATA OUTPUT
 	public String getString_A() {
 		return (String) tstContext.getScenarioContext().getContext(Context.DATA_INFO_A);}
 	public String getString_B() {

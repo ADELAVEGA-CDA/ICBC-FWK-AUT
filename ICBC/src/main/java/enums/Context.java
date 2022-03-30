@@ -1,6 +1,7 @@
 package enums;
 
 public enum Context {
+	
 	DATA_INFO_A,
 	DATA_INFO_B,
 	DATA_NUMBER_1,
@@ -10,4 +11,5 @@ public enum Context {
 	DATA_ARRAY,
 	DATA_ARRAY_BID,
 	URL,API,BODY,PARAM
+	
 }
