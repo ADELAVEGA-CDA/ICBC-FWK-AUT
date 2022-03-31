@@ -93,4 +93,9 @@ public class ConfigReader {
 		if(screenshotPath!=null)return screenshotPath;
 		else throw new RuntimeException(message+"_error_reportScreenshotPath_not_specified__");}
 	
+	public String getURLdemo() {
+		String URLdemo = property.getProperty("URLdemo");
+		if (URLdemo != null) return URLdemo;
+		else throw new RuntimeException("Err. URLdemo is empty or not defined.");}
+	
 }

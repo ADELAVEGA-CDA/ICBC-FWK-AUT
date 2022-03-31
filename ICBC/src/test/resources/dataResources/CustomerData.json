@@ -1,0 +1,52 @@
+[
+	{
+		"ID":1,
+		"firstName": "Usuario",
+		"lastName": "Uno",
+		"age": 35,
+		"emailAddress": "UsuarioUno@Gmail.com",
+		"address": {
+			"streetAddress": "CallePublica",
+			"city": "CABA",
+			"postCode": "1010",
+			"state": "CapFed",
+			"country": "Argentina",
+			"county": "Argentino"
+		},
+		"phoneNumber": {
+			"home": "12345678",
+			"mob": "91144445555"
+		},
+		"creditCart":{
+			"number":"1234234534564567",
+			"month":"11",
+			"year":"26",
+			"cuvNro":"921"
+		}
+	},
+	{
+		"ID":2,
+		"firstName": "User",
+		"lastName": "Two",
+		"age": 45,
+		"emailAddress": "UserTwo@Gmail.com",
+		"address": {
+			"streetAddress": "SinCalle",
+			"city": "BsAs",
+			"postCode": "1234",
+			"state": "PciaBsAs",
+			"country": "Argentina",
+			"county": "Argentino"
+		},
+		"phoneNumber": {
+			"home": "12345678",
+			"mob": "91133445566"
+		},
+				"creditCart":{
+			"number":"1234234534564567",
+			"month":"11",
+			"year":"26",
+			"cuvNro":"921"
+		}
+	}
+]
