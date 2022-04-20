@@ -1,19 +1,24 @@
 package stepsDefinition;
 
+import base.GlobalParams;
 import org.junit.Assert;
 import context.TestContext;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.openqa.selenium.WebDriver;
 import pageObjects.Page_sample_Scenario;
 
 public class Steps_sample_Scenario {
 
 	TestContext tst;
+	GlobalParams param;
 	Page_sample_Scenario home;
+	WebDriver driver;
+
 	public Steps_sample_Scenario(TestContext context) {
 		tst=context;
-		home=tst.getPageObjMng().getHome();
+		home= new Page_sample_Scenario(driver);
 	}
 	
 	@Given("^accedo al homebanking individuo$")

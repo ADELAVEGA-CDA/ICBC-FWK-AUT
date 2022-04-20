@@ -2,6 +2,7 @@ package pageObjects;
 
 import java.util.List;
 
+import managers.StartPagesMng;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,11 +10,8 @@ import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
-public class PageExampleE2E {
+public class PageExampleE2E extends StartPagesMng{
 
-	public PageExampleE2E(WebDriver driver) {
-		PageFactory.initElements(driver,this);
-	}
 	// FIND BY HOW AND USING
 	@FindBy(how=How.CSS,using=".noo-product-inner")
 	private List<WebElement> lstCard;
@@ -35,7 +33,11 @@ public class PageExampleE2E {
 	private WebElement spnCart;
 	@FindBy(how=How.XPATH,using="//div[@class='noo-woo-thumbnails']/div[2]")
 	private WebElement imgSlide2;
-	
+
+	public PageExampleE2E(WebDriver driver) {
+		super(driver);
+	}
+
 	// USE DEFINED ELEMENT
 	public void select_Card(int index) {
 		lstCard.get(index).click();}

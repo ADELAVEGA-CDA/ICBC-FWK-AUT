@@ -2,7 +2,7 @@
 Feature: Prueba de API
 
 
-  @api @ApiToken
+  @Api @ApiToken
   Scenario Outline: Se realiza una consulta a una API sin certificado
 		Given accedo a la url <url>
 		And tengo el path de la api <api>
@@ -25,7 +25,7 @@ Feature: Prueba de API
 
 
 
-  @api @apiAutorizacion
+  @Api @apiAutorizacion
   Scenario Outline: Se realiza una consulta a una API sin certificado
 		Given accedo a la url <url> de autorización
 		And tengo el path de la api <api> de autorización
@@ -42,7 +42,7 @@ Feature: Prueba de API
 
 
 
-  @api
+  @Api
   Scenario Outline: Se realiza una consulta a una API sin certificado con dos cabeceras
 		Given accedo a la url <url>
 		And tengo el path de la api <api>
