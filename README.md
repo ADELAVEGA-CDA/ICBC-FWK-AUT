@@ -45,7 +45,7 @@ Las pruebas se escriben en lenguaje coloquial siguiendo cierta estructura con pa
 Se deben crear carpetas, que cumpliran la función de agrupadoras para identificar las especificaciones, las aplicaciones, los canales, los tipos, etc. 
 ```
 
-## /test/java/runnersClass ##
+## /test/java/runners ##
 ```
 Corresponde a la clase ejecutora. En el se usa la opción "tags"
  como filtro para las pruebas que se ejecutan, 
