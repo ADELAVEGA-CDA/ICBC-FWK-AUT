@@ -1,12 +1,12 @@
 package managers;
 
-import base.GlobalParams;
-import base.GlobalRest;
+import context.TestContext;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -15,12 +15,17 @@ import java.time.Duration;
 public class StartPagesMng {
     protected Logger logger = LogManager.getLogger(String.valueOf(this.getClass()));
 
-    public WebDriver driver;
+    protected WebDriver driver;
+    protected WebDriverWait wait;
     private Boolean _size = FileReaderMng.getInstance().getConfigReader().getBrowserSize();
     private String _url = FileReaderMng.getInstance().getConfigReader().getURL();
 
-    public StartPagesMng(WebDriver driver) {
-        this.driver = driver;
+    public StartPagesMng() {
+        if (driver == null) {
+            driver = TestContext.getWebDrvMng().getDrv();
+            wait = TestContext.getWebDrvMng().getWait();
+        }
+
         PageFactory.initElements(driver, this);
 
         if (_size) driver.manage().window().maximize();
@@ -47,16 +52,15 @@ public class StartPagesMng {
         }
     }
 
-    // INIT BASE
-    private GlobalParams params;
-    private GlobalRest rest;
-
-    public GlobalParams getGlobalParams() {
-        return (params == null) ? params = new GlobalParams() : params;
-    }
-
-    public GlobalRest getGlobalRest() {
-        return (rest == null) ? rest = new GlobalRest() : rest;
-    }
-
+//    // INIT BASE
+//    private GlobalParams params;
+//    private GlobalRest rest;
+//
+//    public GlobalParams getGlobalParams() {
+//        return (params == null) ? params = new GlobalParams() : params;
+//    }
+//
+//    public GlobalRest getGlobalRest() {
+//        return (rest == null) ? rest = new GlobalRest() : rest;
+//    }
 }

@@ -1,23 +1,23 @@
 package pageObjects.mobile;
 
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import managers.StartPagesMobileMng;
+import org.openqa.selenium.WebElement;
 
 public class PageMobile extends StartPagesMobileMng {
     @AndroidFindBy(accessibility = "UserName")
     @iOSXCUITFindBy(id = "UserName")
-    private MobileElement tbxUserName;
+    private WebElement tbxUserName;
 
     @AndroidFindBy(accessibility = "Password")
     @iOSXCUITFindBy(id = "Password")
-    private MobileElement tbxPassword;
+    private WebElement tbxPassword;
 
     @AndroidFindBy(xpath = "//android.view.ViewGroup[@name='sign-In']")
     @iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name='sign-In']")
-    private MobileElement btnLogin;
+    private WebElement btnLogin;
 
     public PageMobile(AppiumDriver driver) {
         super(driver);

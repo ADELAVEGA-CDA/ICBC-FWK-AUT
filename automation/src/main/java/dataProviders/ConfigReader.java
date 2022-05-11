@@ -83,7 +83,10 @@ public class ConfigReader {
         String driverType = property.getProperty("browser");
         if (driverType.equalsIgnoreCase("chrome")) return DriversType.CHROME;
         else if (driverType.equalsIgnoreCase("firefox")) return DriversType.FIREFOX;
-        else if (driverType.equalsIgnoreCase("explorer")) return DriversType.INTERNETEXPLORER;
+        else if (driverType.equalsIgnoreCase("edge")) return DriversType.EDGE;
+        else if (driverType.equalsIgnoreCase("safari")) return DriversType.SAFARI;
+        else if (driverType.equalsIgnoreCase("android")) return DriversType.ANDROID;
+        else if (driverType.equalsIgnoreCase("ios")) return DriversType.IOS;
         else throw new RuntimeException(message + "_error_with_the_driver_type__");
     }
 
@@ -109,6 +112,12 @@ public class ConfigReader {
         String screenshotPath = property.getProperty("reportScreenshotPath");
         if (screenshotPath != null) return screenshotPath;
         else throw new RuntimeException(message + "_error_reportScreenshotPath_not_specified__");
+    }
+
+    public Boolean getRecordWindows() {
+        String screenRecord = property.getProperty("screenRecord");
+        if (screenRecord != null) return Boolean.valueOf(screenRecord);
+        return true;
     }
 
     public String getURLdemo() {

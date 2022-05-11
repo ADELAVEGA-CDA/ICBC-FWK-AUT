@@ -26,7 +26,7 @@ public class FileUtilities {
             FileWriter myWriter = new FileWriter(filePath);
             myWriter.write(text);
             myWriter.close();
-            //logger.info("String saved to '" + filePath + "' file");
+            logger.info("String saved to '" + filePath + "' file");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -36,14 +36,14 @@ public class FileUtilities {
         File file = new File(filePath);
         try {
             Files.deleteIfExists(file.toPath());
+            logger.info("File '" + filePath + "' deleted");
         } catch (IOException e) {
             logger.warn("File '" + filePath + "' not found");
         }
-        //logger.info("File '" + filePath + "' deleted");
     }
 
     public static String readFile(String filePath) throws IOException {
-        //logger.info("Reading contents of '" + filePath + "' file");
+        logger.info("Reading contents of '" + filePath + "' file");
         return Files.readString(Paths.get(filePath), StandardCharsets.US_ASCII);
     }
 

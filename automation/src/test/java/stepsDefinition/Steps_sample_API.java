@@ -3,10 +3,10 @@ package stepsDefinition;
 import base.GlobalParams;
 import base.GlobalRest;
 import context.TestContext;
-import cucumber.api.DataTable;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import io.cucumber.datatable.DataTable;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
@@ -22,8 +22,8 @@ public class Steps_sample_API {
 
     public Steps_sample_API(TestContext context) {
         tst = context;
-        param = tst.getPageObjMng().getGlobalParams();
-        rest = tst.getPageObjMng().getGlobalRest();
+        param = tst.getGlobalParams();
+        rest = tst.getGlobalRest();
     }
 
     @Given("^accedo a la url \"([^\"]*)\" de autorización$")
@@ -98,7 +98,7 @@ public class Steps_sample_API {
 
     @When("^ingreso los datos del body$")
     public void ingreso_los_datos_del_body(DataTable body) throws Throwable {
-        List<List<String>> _body = body.raw();
+        List<List<String>> _body = body.cells();
         param.setBODY("{\"" + _body.get(0).get(0) + "\":\"" + _body.get(0).get(1) + "\",\"" + _body.get(0).get(2) + "\":[{\"" + _body.get(0).get(3) + "\":\"" + _body.get(0).get(4) + "\"}]}");
         logger.info(param.getBODY());
     }
@@ -110,8 +110,8 @@ public class Steps_sample_API {
 
     @When("^indico los datos de la cabecera api$")
     public void indico_los_datos_de_la_cabecera_api(DataTable header) throws Throwable {
-        List<List<String>> _head = header.raw();
-        int filas = header.raw().size();
+        List<List<String>> _head = header.cells();
+        int filas = header.cells().size();
         String[][] arrHead = new String[filas][2];
         for (int x = 0; x < filas; x++) {
             arrHead[x][0] = _head.get(x).get(0);

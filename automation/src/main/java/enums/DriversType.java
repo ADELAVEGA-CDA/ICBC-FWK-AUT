@@ -5,6 +5,7 @@ public enum DriversType {
     CHROME,
     INTERNETEXPLORER,
     EDGE,
+    SAFARI,
     ANDROID,
     IOS
 }

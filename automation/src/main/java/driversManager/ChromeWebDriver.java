@@ -5,10 +5,12 @@ import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.util.List;
+
 public class ChromeWebDriver {
     private static RemoteWebDriver driver;
 
-    public static RemoteWebDriver loadChromeDriver(String chromeArgument) {
+    public static RemoteWebDriver loadDriver(List<String> chromeArgument) {
         ChromeDriverService driverService = ChromeDriverService.createDefaultService();
 
         ChromeOptions options = new ChromeOptions();

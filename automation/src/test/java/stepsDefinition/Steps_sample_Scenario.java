@@ -1,29 +1,26 @@
 package stepsDefinition;
 
 import base.GlobalParams;
-import context.TestContext;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
-import org.openqa.selenium.WebDriver;
 import pageObjects.Page_sample_Scenario;
 
 public class Steps_sample_Scenario {
     protected Logger logger = LogManager.getLogger(String.valueOf(this.getClass()));
 
-    TestContext tst;
     GlobalParams param;
     Page_sample_Scenario home;
-    WebDriver driver;
 
-    public Steps_sample_Scenario(TestContext context) {
-        tst = context;
-        home = new Page_sample_Scenario(tst.getWebDrvMng().getDrv());
+    public Steps_sample_Scenario() {
+        //tst = context;
+        //home = new Page_sample_Scenario(tst.getWebDrvMng().getDrv());
+        this.home = new Page_sample_Scenario();
     }
-    
+
     @When("^hago clic en el menu Personas de la pagina Personas$")
     public void hago_clic_en_el_menu_Personas_de_la_pagina_Personas() throws Throwable {
         //

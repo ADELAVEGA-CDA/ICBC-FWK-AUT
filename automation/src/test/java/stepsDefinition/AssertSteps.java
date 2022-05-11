@@ -1,6 +1,5 @@
 package stepsDefinition;
 
-import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -50,20 +49,20 @@ public class AssertSteps {
         logger.info(":: The current activity in the foreground is: " + currentActivity);
     }
 
-    public void validateCurrentContext(String currentContext) {
-        Assert.assertTrue(getCurrentContext().contains(currentContext));
-        logger.info(":: The current context is: " + currentContext);
-    }
+//    public void validateCurrentContext(String currentContext) {
+//        Assert.assertTrue(getCurrentContext().contains(currentContext));
+//        logger.info(":: The current context is: " + currentContext);
+//    }
 
     private String getCurrentActivity() {
         AndroidDriver androidDriver = (AndroidDriver) driver;
         return androidDriver.currentActivity();
     }
 
-    private String getCurrentContext() {
-        AppiumDriver appiumDriver = (AppiumDriver) driver;
-        return appiumDriver.getContext();
-    }
+//    private String getCurrentContext() {
+//        AppiumDriver appiumDriver = (AppiumDriver) driver;
+//        return appiumDriver.getContext();
+//    }
 
     private String getPageSource() {
         return driver.getPageSource();

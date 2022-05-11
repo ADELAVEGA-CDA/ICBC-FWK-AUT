@@ -1,20 +1,16 @@
 package stepsDefinition;
 
-import com.cucumber.listener.ExtentProperties;
-import com.cucumber.listener.Reporter;
-import com.google.common.io.Files;
 import context.TestContext;
-import cucumber.api.Scenario;
-import cucumber.api.java.After;
-import cucumber.api.java.Before;
-import enums.Environment;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
 import managers.FileReaderMng;
+import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import utils.FileUtilities;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,71 +19,44 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Hooks {
-    protected Logger logger = LogManager.getLogger(String.valueOf(this.getClass()));
-
-    TestContext tstContext;
-    private static Environment ambType;
-    private static String screenshotPath;
-    private static String reportPath = FileReaderMng.getInstance().getConfigReader().getReportPath();
-
-    public Hooks(TestContext context) {
-        tstContext = context;
-        ambType = FileReaderMng.getInstance().getConfigReader().getAmbiente();
-        screenshotPath = FileReaderMng.getInstance().getConfigReader().getSceenshotPath();
-    }
+    private static final Logger logger = LogManager.getLogger(String.valueOf(FileUtilities.class));
+    TestContext testContext;
 
     @Before
-    public void beforeSteps(Scenario scenario) {
-        if (scenario.getName().equals("Scenario Name")) {
-            Reporter.assignAuthor("Automation Teams");
+    public void beforeSteps() {
+        testContext = new TestContext();
+    }
+
+    @After(order = 1)
+    public void afterScenario(Scenario scenario) throws IOException {
+        if (scenario.isFailed()) {
+            String scenarioName = scenario.getName().replaceAll(" ", "_") + "_";
+            Date date = new Date();
+            DateFormat formatDate = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            String dateNow = formatDate.format(date);
+            String dateName = dateNow.replace("/", "").replace(":", "")
+                    .replace(" ", "_");
+
+            String screenshotPath = FileReaderMng.getInstance().getConfigReader().getSceenshotPath();
+
+            File midPath = new File(System.getProperty("user.dir") + screenshotPath);
+            if (!midPath.exists())
+                midPath.mkdirs();
+
+            TakesScreenshot screenshot = (TakesScreenshot) TestContext.getWebDrvMng().getDrv();
+            byte[] srcByte = screenshot.getScreenshotAs(OutputType.BYTES);
+            File srcFile = screenshot.getScreenshotAs(OutputType.FILE);
+            File destFile = new File(midPath + "/" + scenarioName + dateName + ".png");
+            FileUtils.copyFile(srcFile, destFile);
+            scenario.attach(srcByte, "image/png", "image");
+
+            logger.info("ScreenCapture in: " + destFile);
         }
     }
 
     @After(order = 0)
     public void afterSteps() throws InterruptedException {
         Thread.sleep(5000);
-        tstContext.getWebDrvMng().closeBrw();
-    }
-
-    @After(order = 1)
-    public void afterScenario(Scenario scenario) {
-        if (scenario.isFailed()) {
-            String screenShot = scenario.getName().replaceAll(" ", "_");
-            Date date = new Date();
-            DateFormat formatDate = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-            String dateNow = formatDate.format(date);
-            String file = dateNow.replace("/", "").replace(":", "").replace(" ", "_") + "_";
-            try {
-                File sourcePath = ((TakesScreenshot) tstContext.getWebDrvMng().getDrv()).getScreenshotAs(OutputType.FILE);
-                File destinationPath = new File(System.getProperty("user.dir") + "/target/reportesCucumber/" +
-                        "reporteExtent/ScreenShot/" + file + screenShot + ".png");
-                Files.copy(sourcePath, destinationPath);
-                Reporter.addScreenCaptureFromPath(destinationPath.toString());
-            } catch (IOException e) {
-                logger.warn(e);
-            }
-        }
-    }
-
-    @BeforeClass
-    public static void setup() {
-        Date date = new Date();
-        DateFormat formatDate = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        String currentDate = formatDate.format(date);
-        String fileName = "reporte_" + (((currentDate.replace("/", "")).replace(":", ""))
-                .replace(" ", "_"));
-        ExtentProperties extentProperties = ExtentProperties.INSTANCE;
-        extentProperties.setReportPath(reportPath + fileName + ".html");
-    }
-
-    @AfterClass
-    public static void writeExtentReport() {
-        Reporter.loadXMLConfig(new File(FileReaderMng.getInstance().getConfigReader().getConfigReporte()));
-        Reporter.setSystemInfo("User Name", System.getProperty("user.name"));
-        Reporter.setSystemInfo("Time Zone", System.getProperty("user.timezone"));
-        Reporter.setSystemInfo("Machine", "Windows 10" + "64 Bit");
-        Reporter.setSystemInfo("Selenium", "3.7.0");
-        Reporter.setSystemInfo("Maven", "3.5.2");
-        Reporter.setSystemInfo("Java Version", "1.8.0");
+        TestContext.getWebDrvMng().closeBrw();
     }
 }

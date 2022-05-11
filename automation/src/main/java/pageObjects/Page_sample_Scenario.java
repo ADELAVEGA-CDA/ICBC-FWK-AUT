@@ -2,19 +2,15 @@ package pageObjects;
 
 import managers.FileReaderMng;
 import managers.StartPagesMng;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class Page_sample_Scenario extends StartPagesMng {
 
     private Boolean _size = FileReaderMng.getInstance().getConfigReader().getBrowserSize();
     private String _url = FileReaderMng.getInstance().getConfigReader().getURL();
-
-    public Page_sample_Scenario(WebDriver driver) {
-        super(driver);
-    }
 
     // FIND BY HOW AND USING
     @FindBy(how = How.CSS, using = ".po-hea__menu-title")
@@ -34,6 +30,7 @@ public class Page_sample_Scenario extends StartPagesMng {
     }
 
     public void clic_onPaquete() {
+        wait.until(ExpectedConditions.visibilityOf(btnPaquete));
         btnPaquete.click();
     }
 

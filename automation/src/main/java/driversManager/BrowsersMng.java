@@ -6,13 +6,18 @@ import managers.FileReaderMng;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
+import java.util.Arrays;
+import java.util.List;
 
 public class BrowsersMng {
     protected Logger logger = LogManager.getLogger(String.valueOf(this.getClass()));
 
     private WebDriver driver;
+    private WebDriverWait wait;
+
     private static DriversType brwType;
     private static Environment ambType;
     private static String webDrvPath;
@@ -77,6 +82,8 @@ public class BrowsersMng {
             default:
                 logger.info("__verify__ambType_case__");
         }
+
+        wait = new WebDriverWait(driver, Duration.ofSeconds(waitTime));
         return driver;
     }
 
@@ -85,30 +92,34 @@ public class BrowsersMng {
     }
 
     private WebDriver createLocal(boolean headless) {
-        String args = "";
+        List<String> args = Arrays.asList("--ignore-certificate-errors");
+        ;
 
         switch (brwType) {
             case FIREFOX:
-                driver = FirefoxWebDriver.loadFirefoxDriver(headless);
-                System.setProperty("webdriver.gecko.driver", webDrvPath);
-//                driver = new FirefoxDriver();
+                System.setProperty("webdriver.gecko.driver", webDrvPath + "/geckodriver.exe");
+                driver = FirefoxWebDriver.loadDriver(headless);
                 logger.info("__driver_new_FirefoxFriver__");
                 break;
             case CHROME:
                 if (headless)
-                    args = "--headless --disable-gpu --window-size=1280,800 --ignore-certificate-errors";
+                    args = Arrays.asList("--headless", "--disable-gpu",
+                            "--window-size=1280,800", "--ignore-certificate-errors");
 
-                driver = ChromeWebDriver.loadChromeDriver(args);
-                System.setProperty("webdriver.chrome.driver", webDrvPath);
-//                driver = new ChromeDriver();
+                System.setProperty("webdriver.chrome.driver", webDrvPath + "/chromedriver.exe");
+                driver = ChromeWebDriver.loadDriver(args);
                 logger.info("__driver_new_ChromeDriver__");
                 break;
             case EDGE:
                 if (headless)
-                    args = "--headless --disable-gpu";
+                    args = Arrays.asList("--headless", "--window-size=1280,800", "--disable-gpu");
 
-                driver = EdgeWebDriver.loadEdgeDriver(args);
-                System.setProperty("webdriver.edge.driver", webDrvPath);
+                System.setProperty("webdriver.edge.driver", webDrvPath + "/msedgedriver.exe");
+                driver = EdgeWebDriver.loadDriver(args);
+                logger.info("__driver_new_EdgeDriver__");
+                break;
+            case SAFARI:
+                driver = SafariWebDriver.loadDriver();
                 logger.info("__driver_new_EdgeDriver__");
                 break;
             case ANDROID:
@@ -135,9 +146,14 @@ public class BrowsersMng {
                 logger.info("__verify__brwType_case__");
         }
 
-        driver.manage().timeouts().implicitlyWait(waitTime, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(waitTime));
         return driver;
     }
+
+    public WebDriverWait getWait() {
+        return wait;
+    }
+
 
     public void closeBrw() {
         if (ambType == Environment.LOCAL_API || ambType == Environment.REMOTO_API)
@@ -147,7 +163,7 @@ public class BrowsersMng {
 
             try {
                 driver.quit();
-                driver.close();
+                //driver.close();
 
                 if (device)
                     AppiumServer.stop();

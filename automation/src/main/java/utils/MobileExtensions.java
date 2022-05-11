@@ -1,29 +1,34 @@
 package utils;
 
+import context.TestContext;
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class MobileExtensions extends WebElementUtilities {
     private AppiumDriver driver;
+    private WebDriverWait wait;
     private int sec = 10;
 
     public MobileExtensions(AppiumDriver driver) {
         super(driver);
         this.driver = driver;
+        wait = TestContext.getWebDrvMng().getWait();
     }
 
-    public void esScrollToPage(MobileElement element, int scrollToPage) {
+    public void esScrollToPage(WebElement element, int scrollToPage) {
         Map<String, Object> params = new HashMap<>();
         params.put("element", element);
         params.put("scrollToPage", scrollToPage);
         driver.executeScript("mobile: scrollToPage", params);
     }
 
-    public void esScrollToPage(MobileElement element, String scrollTo, boolean smoothScroll) {
+    public void esScrollToPage(WebElement element, String scrollTo, boolean smoothScroll) {
         Map<String, Object> params = new HashMap<>();
         params.put("element", element);
         params.put("scrollTo", scrollTo);
@@ -31,7 +36,7 @@ public class MobileExtensions extends WebElementUtilities {
         driver.executeScript("mobile: scrollToPage", params);
     }
 
-    public void esSetTime(MobileElement element, int hours, int minutes) {
+    public void esSetTime(WebElement element, int hours, int minutes) {
         Map<String, Object> params = new HashMap<>();
         params.put("element", element);
         params.put("hours", hours);
@@ -39,7 +44,7 @@ public class MobileExtensions extends WebElementUtilities {
         driver.executeScript("mobile: setTime", params);
     }
 
-    public void esSetDate(MobileElement element, int year, int monthOfYear, int dayOfMonth) {
+    public void esSetDate(WebElement element, int year, int monthOfYear, int dayOfMonth) {
         Map<String, Object> params = new HashMap<>();
         params.put("element", element);
         params.put("year", year);
@@ -48,27 +53,27 @@ public class MobileExtensions extends WebElementUtilities {
         driver.executeScript("mobile: setDate", params);
     }
 
-    public void esCloseDrawer(MobileElement element, int gravity) {
+    public void esCloseDrawer(WebElement element, int gravity) {
         Map<String, Object> params = new HashMap<>();
         params.put("element", element);
         params.put("gravity", gravity);
         driver.executeScript("mobile: closeDrawer", params);
     }
 
-    public void esCloseDrawer(MobileElement element) {
+    public void esCloseDrawer(WebElement element) {
         Map<String, Object> params = new HashMap<>();
         params.put("element", element);
         driver.executeScript("mobile: closeDrawer", params);
     }
 
-    public void esOpenDrawer(MobileElement element, int gravity) {
+    public void esOpenDrawer(WebElement element, int gravity) {
         Map<String, Object> params = new HashMap<>();
         params.put("element", element);
         params.put("gravity", gravity);
         driver.executeScript("mobile: openDrawer", params);
     }
 
-    public void esOpenDrawer(MobileElement element) {
+    public void esOpenDrawer(WebElement element) {
         Map<String, Object> params = new HashMap<>();
         params.put("element", element);
         driver.executeScript("mobile: openDrawer", params);
@@ -81,11 +86,11 @@ public class MobileExtensions extends WebElementUtilities {
         driver.executeScript("mobile: isToastVisible", params);
     }
 
-    public void esSwipe(String direction, MobileElement element) {
+    public void esSwipe(String direction, WebElement element) {
         meElementIsDisplayed(element);
         Map<String, Object> params = new HashMap<>();
         params.put("direction", direction);
-        params.put("element", element.getId());
+        params.put("element", ((RemoteWebElement) element).getId());
         driver.executeScript("mobile: swipe", params);
     }
 
@@ -95,7 +100,7 @@ public class MobileExtensions extends WebElementUtilities {
         driver.executeScript("mobile: swipe", params);
     }
 
-    public void xcScroll(String direction, MobileElement element) {
+    public void xcScroll(String direction, WebElement element) {
         meElementIsDisplayed(element);
         Map<String, Object> params = new HashMap<>();
         params.put("direction", direction);
@@ -116,11 +121,11 @@ public class MobileExtensions extends WebElementUtilities {
         driver.executeScript("mobile: pinch", args);
     }
 
-    public void xcPinchOrZoom(MobileElement element, double scale) {
+    public void xcPinchOrZoom(WebElement element, double scale) {
         meElementIsDisplayed(element);
         Map<String, Object> args = new HashMap<>();
         args.put("scale", scale);
-        args.put("element", element.getId());
+        args.put("element", ((RemoteWebElement) element).getId());
         driver.executeScript("mobile: pinch", args);
     }
 
@@ -131,10 +136,10 @@ public class MobileExtensions extends WebElementUtilities {
         driver.executeScript("mobile: tap", args);
     }
 
-    public void xcTapOn(MobileElement element, double x, double y) {
+    public void xcTapOn(WebElement element, double x, double y) {
         meElementIsDisplayed(element);
         Map<String, Object> args = new HashMap<>();
-        args.put("element", element.getId());
+        args.put("element", ((RemoteWebElement) element).getId());
         args.put("x", x);
         args.put("y", y);
         driver.executeScript("mobile: tap", args);
@@ -147,24 +152,24 @@ public class MobileExtensions extends WebElementUtilities {
         driver.executeScript("mobile: doubleTap", args);
     }
 
-    public void xcDoubleTapOn(MobileElement element) {
+    public void xcDoubleTapOn(WebElement element) {
         meElementIsDisplayed(element);
         Map<String, Object> args = new HashMap<>();
-        args.put("element", element.getId());
+        args.put("element", ((RemoteWebElement) element).getId());
         driver.executeScript("mobile: doubleTap", args);
     }
 
-    public void xcTwoFingerTapOn(MobileElement element) {
+    public void xcTwoFingerTapOn(WebElement element) {
         meElementIsDisplayed(element);
         Map<String, Object> args = new HashMap<>();
-        args.put("element", element.getId());
+        args.put("element", ((RemoteWebElement) element).getId());
         driver.executeScript("mobile: twoFingerTap", args);
     }
 
-    public void xcTouchAndHoldOn(MobileElement element, double duration) {
+    public void xcTouchAndHoldOn(WebElement element, double duration) {
         meElementIsDisplayed(element);
         Map<String, Object> args = new HashMap<>();
-        args.put("element", element.getId());
+        args.put("element", ((RemoteWebElement) element).getId());
         args.put("duration", duration);
         driver.executeScript("mobile: touchAndHold", args);
     }
@@ -179,10 +184,10 @@ public class MobileExtensions extends WebElementUtilities {
         driver.executeScript("mobile: dragFromToForDuration", args);
     }
 
-    public void xcDragFromToForDuration(MobileElement element, double duration, double fromX, double fromY, double toX, double toY) {
+    public void xcDragFromToForDuration(WebElement element, double duration, double fromX, double fromY, double toX, double toY) {
         meElementIsDisplayed(element);
         Map<String, Object> args = new HashMap<>();
-        args.put("element", element.getId());
+        args.put("element", ((RemoteWebElement) element).getId());
         args.put("duration", duration);
         args.put("fromX", fromX);
         args.put("fromY", fromY);
@@ -191,16 +196,16 @@ public class MobileExtensions extends WebElementUtilities {
         driver.executeScript("mobile: dragFromToForDuration", args);
     }
 
-    public void xcSelectPickerWheelValue(MobileElement element, String order, double offset) {
+    public void xcSelectPickerWheelValue(WebElement element, String order, double offset) {
         Map<String, Object> params = new HashMap<>();
         params.put("order", order);
         params.put("offset", offset);
-        params.put("element", element.getId());
+        params.put("element", ((RemoteWebElement) element).getId());
         driver.executeScript("mobile: selectPickerWheelValue", params);
     }
 
     public void xcPerformActionOnAlert(String action, String buttonLabel) {
-        weWaitForSeconds().until(ExpectedConditions.alertIsPresent());
+        wait.until(ExpectedConditions.alertIsPresent());
         HashMap<String, String> args = new HashMap<>();
         args.put("action", action);
         args.put("buttonLabel", buttonLabel);
@@ -208,14 +213,14 @@ public class MobileExtensions extends WebElementUtilities {
     }
 
     public void xcPerformActionOnAlert(String action) {
-        weWaitForSeconds().until(ExpectedConditions.alertIsPresent());
+        wait.until(ExpectedConditions.alertIsPresent());
         HashMap<String, String> args = new HashMap<>();
         args.put("action", action);
         driver.executeScript("mobile: alert", args);
     }
 
-    public boolean meElementIsDisplayed(MobileElement element) {
-        weWaitForSeconds().until(ExpectedConditions.visibilityOf(element));
+    public boolean meElementIsDisplayed(WebElement element) {
+        wait.until(ExpectedConditions.visibilityOf(element));
         return element.isDisplayed();
     }
 }

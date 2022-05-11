@@ -9,7 +9,7 @@ public class FirefoxWebDriver {
 
     private static RemoteWebDriver driver;
 
-    public static RemoteWebDriver loadFirefoxDriver(boolean headless) {
+    public static RemoteWebDriver loadDriver(boolean headless) {
         FirefoxBinary firefoxBinary = new FirefoxBinary();
         FirefoxOptions options = new FirefoxOptions();
         options.setBinary(firefoxBinary);

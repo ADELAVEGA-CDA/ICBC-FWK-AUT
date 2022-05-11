@@ -1,7 +1,7 @@
 package stepsDefinition;
 
 import context.TestContext;
-import cucumber.api.java.en.Given;
+import io.cucumber.java.en.Given;
 import org.junit.Assert;
 import pageObjects.Page_DemoBDDPage;
 
@@ -90,16 +90,16 @@ public class Steps_DemoSceOut {
         demoPage.goTo_PlaceOrder();
     }
 
-//	@Given("completo {string}, {string}, {string}, {string}, {string} y {string} del formulario")
-//	public void completo_y_del_formulario(String name, String country, String city, String card, String month, String year) {
-//		//DemoBDDPage demoPage = new DemoBDDPage(driver);
-//		demoPage.enter_Name(name);
-//		demoPage.enter_Country(country);
-//		demoPage.enter_City(city);
-//		demoPage.enter_CardNumber(card);
-//		demoPage.enter_Month(month);
-//		demoPage.enter_Year(year);
-//	}
+    @Given("completo {string}, {string}, {string}, {string}, {string} y {string} del formulario")
+    public void completo_y_del_formulario(String name, String country, String city, String card, String month, String year) {
+        //DemoBDDPage demoPage = new DemoBDDPage(driver);
+        demoPage.enter_Name(name);
+        demoPage.enter_Country(country);
+        demoPage.enter_City(city);
+        demoPage.enter_CardNumber(card);
+        demoPage.enter_Month(month);
+        demoPage.enter_Year(year);
+    }
 
     @Given("hago clic en comprar")
     public void hago_clic_en_comprar() {
@@ -115,5 +115,4 @@ public class Steps_DemoSceOut {
         Assert.assertEquals(sExpetedMessage, sObtainedMessage);
         //driver.close();
     }
-
 }

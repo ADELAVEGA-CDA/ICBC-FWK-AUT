@@ -1,8 +1,8 @@
 package stepsDefinition;
 
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
@@ -20,10 +20,6 @@ public class StepsAPITest {
 
     @Given("^el sitio: \"([^\"]*)\"$")
     public void elSitio(String url) throws Throwable {
-//        request = given()
-//                    .baseUri(url)
-//                    .contentType(ContentType.JSON);
-
         request = given()
                 .contentType(ContentType.JSON)
                 .relaxedHTTPSValidation()

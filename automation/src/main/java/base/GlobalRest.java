@@ -16,11 +16,9 @@ public class GlobalRest {
     private Response _response;
     private Boolean blnFlag = true;
     GlobalParams param;
-    TestContext tstContext;
 
     public GlobalRest() {
-        tstContext = new TestContext();
-        param = tstContext.getPageObjMng().getGlobalParams();
+        param = TestContext.getGlobalParams();
     }
 
     public Response response() {
@@ -30,12 +28,12 @@ public class GlobalRest {
         _request = given();
 
         // SET DATA HEADER
-        int matrixLeght = param.getMatrixLenght();
-        if (matrixLeght == 0) {
+        int matrixLenght = param.getMatrixLenght();
+        if (matrixLenght == 0) {
             blnFlag = false;
             logger.warn(">> IMPLEMENT NEW HEADER CASE <<");
         } else {
-            for (int i = 0; i < matrixLeght; i++) {
+            for (int i = 0; i < matrixLenght; i++) {
                 _request.header(param.getMatrix(i, 0), param.getMatrix(i, 1));
                 logger.info("Case " + param.getMatrix(i, 0) + " | " + param.getMatrix(i, 1));
             }
