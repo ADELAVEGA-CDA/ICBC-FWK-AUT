@@ -132,6 +132,18 @@ public class ConfigReader {
         else throw new RuntimeException("Err. appiumURL is empty or not defined.");
     }
 
+    public String getAppPackageAndroid() {
+        String appPackage = property.getProperty("appPackage");
+        if (appPackage != null) return appPackage;
+        else throw new RuntimeException("Err. appPackage is empty or not defined.");
+    }
+
+    public String getAppActivityAndroid() {
+        String appMainActivity = property.getProperty("appMainActivity");
+        if (appMainActivity != null) return appMainActivity;
+        else throw new RuntimeException("Err. appMainActivity is empty or not defined.");
+    }
+
     public String getAppNameAndroid() {
         String appName = property.getProperty("appNameAndroid");
         if (appName != null) return appName;

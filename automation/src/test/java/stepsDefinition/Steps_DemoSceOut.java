@@ -3,13 +3,12 @@ package stepsDefinition;
 import context.TestContext;
 import io.cucumber.java.en.Given;
 import org.junit.Assert;
-import pageObjects.Page_DemoBDDPage;
+import pageObjects.PageDemoBDDPage;
 
 public class Steps_DemoSceOut {
 
     //WebDriver driver;
-    Page_DemoBDDPage demoPage;
-    TestContext tstContext;
+    PageDemoBDDPage demoPage;
 
     //String localDir = System.getProperty("user.dir");
     //String sDrv = "webdriver.chrome.driver";
@@ -17,8 +16,7 @@ public class Steps_DemoSceOut {
     //String sUrl = "https://www.demoblaze.com/";
 
     public Steps_DemoSceOut(TestContext context) {
-        tstContext = context;
-        demoPage = new Page_DemoBDDPage(tstContext.getWebDrvMng().getDrv());
+        demoPage = new PageDemoBDDPage();
     }
 
     @Given("accedo al Store del sitio de demoblaze")

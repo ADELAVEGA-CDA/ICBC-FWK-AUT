@@ -10,13 +10,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import utils.DateUtilities;
 import utils.FileUtilities;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class Hooks {
     private static final Logger logger = LogManager.getLogger(String.valueOf(FileUtilities.class));
@@ -25,17 +23,16 @@ public class Hooks {
     @Before
     public void beforeSteps() {
         testContext = new TestContext();
+        TestContext.getWebDrvMng().setDriver();
     }
 
     @After(order = 1)
     public void afterScenario(Scenario scenario) throws IOException {
         if (scenario.isFailed()) {
             String scenarioName = scenario.getName().replaceAll(" ", "_") + "_";
-            Date date = new Date();
-            DateFormat formatDate = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-            String dateNow = formatDate.format(date);
-            String dateName = dateNow.replace("/", "").replace(":", "")
-                    .replace(" ", "_");
+
+            DateUtilities dateUtils = new DateUtilities();
+            String dateName = dateUtils.getDateString();
 
             String screenshotPath = FileReaderMng.getInstance().getConfigReader().getSceenshotPath();
 
@@ -43,7 +40,7 @@ public class Hooks {
             if (!midPath.exists())
                 midPath.mkdirs();
 
-            TakesScreenshot screenshot = (TakesScreenshot) TestContext.getWebDrvMng().getDrv();
+            TakesScreenshot screenshot = (TakesScreenshot) TestContext.getWebDrvMng().getDriver();
             byte[] srcByte = screenshot.getScreenshotAs(OutputType.BYTES);
             File srcFile = screenshot.getScreenshotAs(OutputType.FILE);
             File destFile = new File(midPath + "/" + scenarioName + dateName + ".png");
@@ -51,12 +48,15 @@ public class Hooks {
             scenario.attach(srcByte, "image/png", "image");
 
             logger.info("ScreenCapture in: " + destFile);
+
+            //TODO ANDROID DEVICE CAPTURE
+            //TODO IOS DEVICE CAPTURE
         }
     }
 
     @After(order = 0)
     public void afterSteps() throws InterruptedException {
         Thread.sleep(5000);
-        TestContext.getWebDrvMng().closeBrw();
+        TestContext.getWebDrvMng().closeBrowser();
     }
 }

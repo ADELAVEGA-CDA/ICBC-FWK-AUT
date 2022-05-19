@@ -5,7 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 
-public class ApiAsserts {
+public class AssertsApi {
     protected Logger logger = LogManager.getLogger(String.valueOf(this.getClass()));
 
     public void assertStatusCode(Response response, String expectedCode) {

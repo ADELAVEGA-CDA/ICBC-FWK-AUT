@@ -8,9 +8,17 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class DateUtilities {
-
     public String getUniqueString() {
         return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS"));
+    }
+
+    public String getDateString() {
+        Date date = new Date();
+        DateFormat formatDate = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        String dateNow = formatDate.format(date);
+        String dateName = dateNow.replace("/", "").replace(":", "")
+                .replace(" ", "_");
+        return dateName;
     }
 
     public String getCurrentDateAndTime() {

@@ -7,17 +7,17 @@ import io.cucumber.java.en.When;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
-import pageObjects.Page_sample_ScenarioOutline;
+import pageObjects.PageSampleScenarioOutline;
 
 public class Steps_sample_ScenarioOutline {
     protected Logger logger = LogManager.getLogger(String.valueOf(this.getClass()));
 
     TestContext tst;
-    Page_sample_ScenarioOutline personas;
+    PageSampleScenarioOutline personas;
 
     public Steps_sample_ScenarioOutline(TestContext context) {
         tst = context;
-        personas = new Page_sample_ScenarioOutline(tst.getWebDrvMng().getDrv());
+        personas = new PageSampleScenarioOutline();
 
     }
 
