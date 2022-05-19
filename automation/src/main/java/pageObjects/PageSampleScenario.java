@@ -1,16 +1,12 @@
 package pageObjects;
 
 import io.appium.java_client.pagefactory.AndroidFindBy;
-import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import managers.StartPagesMng;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-
-import static java.time.Duration.ofSeconds;
 
 public class PageSampleScenario extends StartPagesMng {
     // FIND BY HOW AND USING
@@ -31,10 +27,6 @@ public class PageSampleScenario extends StartPagesMng {
     @iOSXCUITFindBy(id = "UserName")
     @FindBy(how = How.XPATH, using = "//ul[contains(@class,'po-hea__subsubmenu-list')]/li[2]")
     private WebElement btnPaquete;
-
-    public PageSampleScenario() {
-        PageFactory.initElements(new AppiumFieldDecorator(androidDriver, ofSeconds(5)), this);
-    }
 
     // USE DEFINED ELEMENT
     public void clicOnPersonas() {
