@@ -182,10 +182,9 @@ public class BrowsersMng {
         if (ambType == Environment.LOCAL_API || ambType == Environment.REMOTO_API)
             logger.info("__closeBrw__without_browser__");
         else {
-            if (driver == null) return;
-
             try {
-                driver.quit();
+                if (driver != null)
+                    driver.quit();
                 //driver.close();
 
                 if (device)

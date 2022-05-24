@@ -5,6 +5,7 @@ import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import managers.StartPagesMng;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
@@ -14,18 +15,22 @@ public class PageSampleScenario extends StartPagesMng {
     private WebElement closeTranslate;
     @AndroidFindBy(xpath = "//button[@type='button']")
     @iOSXCUITFindBy(id = "UserName")
+    @FindBy(how = How.XPATH, using = "//button[@type='button']")
     private WebElement btnMenu;
     @AndroidFindBy(xpath = "//span[contains(text(),'Personas')]")
     @iOSXCUITFindBy(id = "UserName")
-    @FindBy(how = How.CSS, using = ".po-hea__menu-title")
+    @FindBys({@FindBy(how = How.CSS, using = ".po-hea__menu-title"),
+            @FindBy(how = How.XPATH, using = "//span[contains(text(),'Personas')]")})
     private WebElement btnPersonas;
     @AndroidFindBy(xpath = "//a[contains(text(),'Productos')]")
     @iOSXCUITFindBy(id = "UserName")
-    @FindBy(how = How.XPATH, using = "//*[contains(@class,'po-hea__submenu-item')][2]")
+    @FindBys({@FindBy(how = How.XPATH, using = "//*[contains(@class,'po-hea__submenu-item')][2]"),
+            @FindBy(how = How.XPATH, using = "//a[contains(text(),'Productos')]")})
     private WebElement btnProductos;
     @AndroidFindBy(xpath = "//a[contains(@href,'/paquetes')]")
     @iOSXCUITFindBy(id = "UserName")
-    @FindBy(how = How.XPATH, using = "//ul[contains(@class,'po-hea__subsubmenu-list')]/li[2]")
+    @FindBys({@FindBy(how = How.XPATH, using = "//ul[contains(@class,'po-hea__subsubmenu-list')]/li[2]"),
+            @FindBy(how = How.XPATH, using = "//a[contains(@href,'/paquetes')]")})
     private WebElement btnPaquete;
 
     // USE DEFINED ELEMENT

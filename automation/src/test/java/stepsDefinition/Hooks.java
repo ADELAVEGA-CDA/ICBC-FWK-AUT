@@ -48,9 +48,6 @@ public class Hooks {
             scenario.attach(srcByte, "image/png", "image");
 
             logger.info("ScreenCapture in: " + destFile);
-
-            //TODO ANDROID DEVICE CAPTURE
-            //TODO IOS DEVICE CAPTURE
         }
     }
 

@@ -59,19 +59,15 @@ public class StepsSampleScenario {
     @When("^busco un producto por \"([^\"]*)\" como descripcion$")
     public void buscoUnProductoPorComoDescripcion(String desc) throws Throwable {
         logger.info("Cuando busco un producto por " + desc + " como descripción.");
-
     }
 
     @When("^hago clic en el boton aceptar$")
     public void hagoClicEnElBotonAceptar() throws Throwable {
         logger.info("Cuando hago clic en el boton aceptar.");
-
     }
 
     @Then("^veo la lista de los productos$")
     public void veoLaListaDeLosProductos() throws Throwable {
         logger.info("Entonces veo la lista de los productos.");
-
     }
-
 }

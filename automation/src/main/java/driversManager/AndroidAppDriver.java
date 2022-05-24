@@ -22,7 +22,7 @@ public class AndroidAppDriver {
         ConfigReader config = FileReaderMng.getInstance().getConfigReader();
 
         if (deviceApp) {
-            File file = new File("src");
+            File file = new File("configs/apps");
             fileApp = new File(file, config.getAppNameAndroid()); //set app filepath to /src/[name-of-apk-file]
         }
 
@@ -45,6 +45,10 @@ public class AndroidAppDriver {
             options.addArguments("--disable-translate");
 
             cap.setCapability("chromeOptions", options);
+
+            cap.setCapability("autoDismissAlerts", true);
+            cap.setCapability("autoGrantPermissions", true);
+            cap.setCapability("autoAcceptAlerts", true);
         }
 
         String appiumServer = AppiumServer.appiumServer.getUrl().toString();

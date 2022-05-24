@@ -11,13 +11,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-
 import static java.time.Duration.ofSeconds;
 
 public class StartPagesMng {
-    protected Logger logger = LogManager.getLogger(String.valueOf(this.getClass()));
+    protected Logger log = LogManager.getLogger(String.valueOf(this.getClass()));
 
     protected AndroidDriver androidDriver;
     protected IOSDriver iosDriver;
@@ -29,10 +26,12 @@ public class StartPagesMng {
 
     public StartPagesMng() {
         if (driverType == null) {
-            //TestContext.getWebDrvMng().setDriver();
-
             driverType = FileReaderMng.getInstance().getConfigReader().getBrowser();
             String _url = FileReaderMng.getInstance().getConfigReader().getURL();
+
+            wait = TestContext.getWebDrvMng().getWait();
+            isDevice = TestContext.getWebDrvMng().isDevice();
+            isDeviceApp = TestContext.getWebDrvMng().isDeviceApp();
 
             if (driverType == DriversType.ANDROID) {
                 androidDriver = TestContext.getWebDrvMng().getAndroidDriver();
@@ -58,32 +57,28 @@ public class StartPagesMng {
             }
 
             if (!isDeviceApp)
-                logger.info("__ToNavigate_" + _url + "__");
-
-            wait = TestContext.getWebDrvMng().getWait();
-            isDevice = TestContext.getWebDrvMng().isDevice();
-            isDeviceApp = TestContext.getWebDrvMng().isDeviceApp();
+                log.info("__ToNavigate_" + _url + "__");
         }
     }
 
-    private static <T> T initElements(WebDriver driver, Class<T> pageClassToProxy) {
-        T page = instantiatePage(driver, pageClassToProxy);
-        PageFactory.initElements(new AppiumFieldDecorator(driver, ofSeconds(15)), page);
-        return page;
-    }
-
-    private static <T> T instantiatePage(WebDriver driver, Class<T> pageClassToProxy) {
-        try {
-            try {
-                Constructor<T> constructor = pageClassToProxy.getConstructor(WebDriver.class);
-                return constructor.newInstance(driver);
-            } catch (NoSuchMethodException var3) {
-                return pageClassToProxy.newInstance();
-            }
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException var4) {
-            throw new RuntimeException(var4);
-        }
-    }
+//    private static <T> T initElements(WebDriver driver, Class<T> pageClassToProxy) {
+//        T page = instantiatePage(driver, pageClassToProxy);
+//        PageFactory.initElements(new AppiumFieldDecorator(driver, ofSeconds(15)), page);
+//        return page;
+//    }
+//
+//    private static <T> T instantiatePage(WebDriver driver, Class<T> pageClassToProxy) {
+//        try {
+//            try {
+//                Constructor<T> constructor = pageClassToProxy.getConstructor(WebDriver.class);
+//                return constructor.newInstance(driver);
+//            } catch (NoSuchMethodException var3) {
+//                return pageClassToProxy.newInstance();
+//            }
+//        } catch (InstantiationException | IllegalAccessException | InvocationTargetException var4) {
+//            throw new RuntimeException(var4);
+//        }
+//    }
 
 //    // INIT BASE
 //    private GlobalParams params;
