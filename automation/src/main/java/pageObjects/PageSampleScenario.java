@@ -1,5 +1,6 @@
 package pageObjects;
 
+import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import managers.StartPagesMng;
@@ -36,6 +37,7 @@ public class PageSampleScenario extends StartPagesMng {
     // USE DEFINED ELEMENT
     public void clicOnPersonas() {
         if (isDevice) {
+            AndroidDriver androidDriver = (AndroidDriver) driver;
             androidDriver.context("NATIVE_APP");
 
             try {
@@ -60,13 +62,4 @@ public class PageSampleScenario extends StartPagesMng {
         wait.until(ExpectedConditions.visibilityOf(btnPaquete));
         btnPaquete.click();
     }
-
-    public String getUrl() {
-        return driver.getCurrentUrl();
-    }
-
-    public String getTitle() {
-        return driver.getTitle();
-    }
-
 }

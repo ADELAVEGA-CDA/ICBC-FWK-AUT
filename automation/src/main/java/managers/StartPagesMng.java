@@ -1,9 +1,6 @@
 package managers;
 
 import context.TestContext;
-import enums.DriversType;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,48 +13,33 @@ import static java.time.Duration.ofSeconds;
 public class StartPagesMng {
     protected Logger log = LogManager.getLogger(String.valueOf(this.getClass()));
 
-    protected AndroidDriver androidDriver;
-    protected IOSDriver iosDriver;
     protected WebDriver driver;
     protected boolean isDevice;
     protected boolean isDeviceApp;
     protected WebDriverWait wait;
-    protected DriversType driverType;
 
     public StartPagesMng() {
-        if (driverType == null) {
-            driverType = FileReaderMng.getInstance().getConfigReader().getBrowser();
+        if (driver == null) {
             String _url = FileReaderMng.getInstance().getConfigReader().getURL();
 
+            driver = TestContext.getWebDrvMng().getDriver();
             wait = TestContext.getWebDrvMng().getWait();
             isDevice = TestContext.getWebDrvMng().isDevice();
             isDeviceApp = TestContext.getWebDrvMng().isDeviceApp();
 
-            if (driverType == DriversType.ANDROID) {
-                androidDriver = TestContext.getWebDrvMng().getAndroidDriver();
-                PageFactory.initElements(new AppiumFieldDecorator(androidDriver, ofSeconds(5)), this);
-
-                if (!isDeviceApp)
-                    androidDriver.get(_url);
-            } else if (driverType == DriversType.IOS) {
-                iosDriver = TestContext.getWebDrvMng().getIosDriver();
-                PageFactory.initElements(new AppiumFieldDecorator(iosDriver, ofSeconds(5)), this);
-
-                if (!isDeviceApp)
-                    iosDriver.get(_url);
-            } else {
-                driver = TestContext.getWebDrvMng().getDriver();
+            if (isDevice)
+                PageFactory.initElements(new AppiumFieldDecorator(driver, ofSeconds(5)), this);
+            else {
                 PageFactory.initElements(driver, this);
 
                 Boolean _size = FileReaderMng.getInstance().getConfigReader().getBrowserSize();
                 if (_size) driver.manage().window().maximize();
-
-                if (!isDeviceApp)
-                    driver.get(_url);
             }
 
-            if (!isDeviceApp)
+            if (!isDeviceApp) {
+                driver.get(_url);
                 log.info("__ToNavigate_" + _url + "__");
+            }
         }
     }
 

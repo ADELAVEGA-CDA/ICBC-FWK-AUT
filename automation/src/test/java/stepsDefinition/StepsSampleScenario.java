@@ -8,15 +8,18 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import pageObjects.PageSampleScenario;
+import utils.DriverUtilities;
 
 public class StepsSampleScenario {
     protected Logger logger = LogManager.getLogger(String.valueOf(this.getClass()));
 
     GlobalParams param;
     PageSampleScenario home;
+    DriverUtilities driverUtils;
 
     public StepsSampleScenario() {
         this.home = new PageSampleScenario();
+        this.driverUtils = new DriverUtilities();
     }
 
     @When("^hago clic en el menu Personas de la pagina Personas$")
@@ -40,15 +43,15 @@ public class StepsSampleScenario {
     @Then("^accedo a los productos y servicios de la pagina Paquetes$")
     public void accedoALosProductosYServiciosDeLaPaginaPaquetes() throws Throwable {
         //
-        logger.info(home.getUrl());
-        logger.info(home.getTitle());
+        logger.info(driverUtils.getUrl());
+        logger.info(driverUtils.getTitle());
     }
 
     @Then("^accedo a \"([^\"]*)\" de la pagina Paquetes$")
     public void accedoADeLaPaginaPaquetes(String title) throws Throwable {
         //
-        Assert.assertEquals(title, home.getTitle());
-        Assert.assertEquals("No coincide los titulos. Verificar. ", title, home.getTitle());
+        Assert.assertEquals(title, driverUtils.getTitle());
+        Assert.assertEquals("No coincide los titulos. Verificar. ", title, driverUtils.getTitle());
     }
 
     @Given("^accedo a la pagina principal$")

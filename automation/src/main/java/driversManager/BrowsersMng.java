@@ -2,8 +2,6 @@ package driversManager;
 
 import enums.DriversType;
 import enums.Environment;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.ios.IOSDriver;
 import managers.FileReaderMng;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,8 +17,6 @@ public class BrowsersMng {
     protected Logger logger = LogManager.getLogger(String.valueOf(this.getClass()));
 
     private WebDriver driver;
-    private AndroidDriver androidDriver;
-    private IOSDriver iosDriver;
     private WebDriverWait wait;
 
     private static DriversType brwType;
@@ -121,9 +117,7 @@ public class BrowsersMng {
             case ANDROID:
                 device = true;
                 try {
-                    androidDriver = AndroidAppDriver.loadEmulator(deviceApp);
-                    androidDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(waitTime));
-                    wait = new WebDriverWait(androidDriver, Duration.ofSeconds(waitTime));
+                    driver = AndroidAppDriver.loadEmulator(deviceApp);
                 } catch (MalformedURLException e) {
                     logger.warn(e + "::Android Emulator bad url");
                 }
@@ -133,9 +127,7 @@ public class BrowsersMng {
             case IOS:
                 device = true;
                 try {
-                    iosDriver = IOSAppDriver.loadIphoneEmulator(deviceApp);
-                    iosDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(waitTime));
-                    wait = new WebDriverWait(iosDriver, Duration.ofSeconds(waitTime));
+                    driver = IOSAppDriver.loadIphoneEmulator(deviceApp);
                 } catch (MalformedURLException e) {
                     logger.warn(e + "::Iphone Emulator bad url");
                 }
@@ -146,24 +138,14 @@ public class BrowsersMng {
                 logger.info("__verify__brwType_case__");
         }
 
-        if (!device) {
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(waitTime));
-            wait = new WebDriverWait(driver, Duration.ofSeconds(waitTime));
-        }
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(waitTime));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(waitTime));
     }
 
     //GETTERS
 
     public WebDriver getDriver() {
         return driver;
-    }
-
-    public AndroidDriver getAndroidDriver() {
-        return androidDriver;
-    }
-
-    public IOSDriver getIosDriver() {
-        return iosDriver;
     }
 
     public WebDriverWait getWait() {
