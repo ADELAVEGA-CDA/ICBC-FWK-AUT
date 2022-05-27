@@ -10,15 +10,31 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MobileExtensions extends WebElementUtilities {
-    private AppiumDriver driver;
-    private WebDriverWait wait;
-    private int sec = 10;
+public class MobileExtensions {
+    private final AppiumDriver driver;
+    private final WebDriverWait wait;
+    private final int sec = 10;
 
-    public MobileExtensions(AppiumDriver driver) {
-        super(driver);
-        this.driver = driver;
+    public MobileExtensions() {
+        driver = (AppiumDriver) TestContext.getWebDrvMng().getDriver();
         wait = TestContext.getWebDrvMng().getWait();
+    }
+
+    //me = Mobile Elements Commands (android and ios)
+    //es = Espresso Specific Mobile Commands
+    //xc = iOS Specific Gestures (XCUITest)
+
+    public void meSwipe(String direction, WebElement element) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("direction", direction);
+        params.put("element", ((RemoteWebElement) element).getId());
+        driver.executeScript("mobile: swipe", params);
+    }
+
+    public void meSwipe(String direction) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("direction", direction);
+        driver.executeScript("mobile: swipe", params);
     }
 
     public void esScrollToPage(WebElement element, int scrollToPage) {
@@ -86,22 +102,7 @@ public class MobileExtensions extends WebElementUtilities {
         driver.executeScript("mobile: isToastVisible", params);
     }
 
-    public void esSwipe(String direction, WebElement element) {
-        meElementIsDisplayed(element);
-        Map<String, Object> params = new HashMap<>();
-        params.put("direction", direction);
-        params.put("element", ((RemoteWebElement) element).getId());
-        driver.executeScript("mobile: swipe", params);
-    }
-
-    public void esSwipe(String direction) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("direction", direction);
-        driver.executeScript("mobile: swipe", params);
-    }
-
     public void xcScroll(String direction, WebElement element) {
-        meElementIsDisplayed(element);
         Map<String, Object> params = new HashMap<>();
         params.put("direction", direction);
         params.put("element", element);
@@ -122,7 +123,6 @@ public class MobileExtensions extends WebElementUtilities {
     }
 
     public void xcPinchOrZoom(WebElement element, double scale) {
-        meElementIsDisplayed(element);
         Map<String, Object> args = new HashMap<>();
         args.put("scale", scale);
         args.put("element", ((RemoteWebElement) element).getId());
@@ -137,7 +137,6 @@ public class MobileExtensions extends WebElementUtilities {
     }
 
     public void xcTapOn(WebElement element, double x, double y) {
-        meElementIsDisplayed(element);
         Map<String, Object> args = new HashMap<>();
         args.put("element", ((RemoteWebElement) element).getId());
         args.put("x", x);
@@ -153,21 +152,18 @@ public class MobileExtensions extends WebElementUtilities {
     }
 
     public void xcDoubleTapOn(WebElement element) {
-        meElementIsDisplayed(element);
         Map<String, Object> args = new HashMap<>();
         args.put("element", ((RemoteWebElement) element).getId());
         driver.executeScript("mobile: doubleTap", args);
     }
 
     public void xcTwoFingerTapOn(WebElement element) {
-        meElementIsDisplayed(element);
         Map<String, Object> args = new HashMap<>();
         args.put("element", ((RemoteWebElement) element).getId());
         driver.executeScript("mobile: twoFingerTap", args);
     }
 
     public void xcTouchAndHoldOn(WebElement element, double duration) {
-        meElementIsDisplayed(element);
         Map<String, Object> args = new HashMap<>();
         args.put("element", ((RemoteWebElement) element).getId());
         args.put("duration", duration);
@@ -185,7 +181,6 @@ public class MobileExtensions extends WebElementUtilities {
     }
 
     public void xcDragFromToForDuration(WebElement element, double duration, double fromX, double fromY, double toX, double toY) {
-        meElementIsDisplayed(element);
         Map<String, Object> args = new HashMap<>();
         args.put("element", ((RemoteWebElement) element).getId());
         args.put("duration", duration);
@@ -217,10 +212,5 @@ public class MobileExtensions extends WebElementUtilities {
         HashMap<String, String> args = new HashMap<>();
         args.put("action", action);
         driver.executeScript("mobile: alert", args);
-    }
-
-    public boolean meElementIsDisplayed(WebElement element) {
-        wait.until(ExpectedConditions.visibilityOf(element));
-        return element.isDisplayed();
     }
 }

@@ -1,6 +1,7 @@
 log/
 target/**
 .idea/
+.allure/
 *.iml
 *.iws
 .DS_Store

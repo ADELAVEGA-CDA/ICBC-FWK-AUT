@@ -9,8 +9,8 @@ import org.junit.runner.RunWith;
         features = "./src/test/resources/",
         glue = {"stepsDefinition"},
         tags = "@Api",
-        plugin = {"pretty", "com.cucumber.listener.ExtentCucumberFormatter:",
-                "json:target/reportesCucumber/reporteJSON/rptJSON.json",
+        plugin = {"pretty", "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:",
+                "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"
         }
 )
 

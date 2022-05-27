@@ -45,7 +45,9 @@ public class Hooks {
             File srcFile = screenshot.getScreenshotAs(OutputType.FILE);
             File destFile = new File(midPath + "/" + scenarioName + dateName + ".png");
             FileUtils.copyFile(srcFile, destFile);
-            scenario.attach(srcByte, "image/png", "image");
+            scenario.attach(srcByte, "image/png", scenario.getName());
+
+//            Allure.addAttachment(scenario.getName(), "image/png", new ByteArrayInputStream(srcByte), "png");
 
             logger.info("ScreenCapture in: " + destFile);
         }

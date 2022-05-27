@@ -12,6 +12,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class PageSampleScenario extends StartPagesMng {
     // FIND BY HOW AND USING
+    //Given you're automating a web page in Chrome browser you should replace all occurrences
+    //of the @AndroidFindBy with @FindBy from org.openqa.selenium.support package
     @AndroidFindBy(id = "com.android.chrome:id/infobar_close_button")
     private WebElement closeTranslate;
     @AndroidFindBy(xpath = "//button[@type='button']")

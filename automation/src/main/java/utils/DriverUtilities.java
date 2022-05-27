@@ -10,7 +10,7 @@ public class DriverUtilities {
     public DriverUtilities() {
         driver = TestContext.getWebDrvMng().getDriver();
     }
-
+    
     public String getCurrentAndroidActivity() {
         AndroidDriver androidDriver = (AndroidDriver) driver;
         return androidDriver.currentActivity();

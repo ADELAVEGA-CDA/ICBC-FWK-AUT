@@ -8,10 +8,10 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = "./src/test/resources/",
         glue = {"stepsDefinition"},
-        tags = "@ScenURL123",
-        plugin = {
-                "pretty",
-                "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:",
+        tags = "@ScenTitle1",
+        plugin = {"pretty", "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:",
+                "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm",
+                "json:target/reportesCucumber/json-report/cucumber.json"
         }
 )
 

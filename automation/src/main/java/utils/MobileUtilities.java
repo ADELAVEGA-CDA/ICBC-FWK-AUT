@@ -5,11 +5,15 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.PerformsTouchActions;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
+import io.appium.java_client.android.nativekey.KeyEventFlag;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
@@ -19,17 +23,24 @@ import static io.appium.java_client.touch.offset.ElementOption.element;
 import static java.time.Duration.ofSeconds;
 
 public class MobileUtilities {
-    private AppiumDriver driver;
-    private int sec = 10;
+    private final AppiumDriver driver;
+    private final int sec = 10;
+    private final WebDriverWait wait;
     private static TouchAction touchAction;
 
-    public MobileUtilities(AppiumDriver driver) {
-        this.driver = driver;
+    public MobileUtilities() {
+        driver = (AppiumDriver) TestContext.getWebDrvMng().getDriver();
+        wait = TestContext.getWebDrvMng().getWait();
         touchAction = new TouchAction((PerformsTouchActions) driver);
     }
 
+    public boolean meElementIsDisplayed(WebElement element) {
+        wait.until(ExpectedConditions.visibilityOf(element));
+        return element.isDisplayed();
+    }
+
     public boolean meElementToBeClickable(WebElement element) {
-        TestContext.getWebDrvMng().getWait().until(ExpectedConditions.elementToBeClickable(element));
+        wait.until(ExpectedConditions.elementToBeClickable(element));
         return element.isEnabled();
     }
 
@@ -38,17 +49,17 @@ public class MobileUtilities {
         touchAction.tap(tapOptions().withElement(element(mobileElement))).perform();
     }
 
+    public void meLongPress(WebElement mobileElement) {
+        meElementToBeClickable(mobileElement);
+        touchAction.longPress(longPressOptions().withElement(element(mobileElement))
+                .withDuration(ofSeconds(2))).release().perform();
+    }
+
     public void meSwipeFromElementToElement(WebElement fromMobileElement, WebElement toMobileElement) {
         meElementToBeClickable(fromMobileElement);
         meElementToBeClickable(toMobileElement);
         touchAction.longPress(longPressOptions().withElement(element(fromMobileElement))
                 .withDuration(ofSeconds(2))).moveTo(element(toMobileElement)).release().perform();
-    }
-
-    public void meLongPress(WebElement mobileElement) {
-        meElementToBeClickable(mobileElement);
-        touchAction.longPress(longPressOptions().withElement(element(mobileElement))
-                .withDuration(ofSeconds(2))).release().perform();
     }
 
     public void meSwipe(Enums.DIRECTION direction, long duration) {
@@ -88,8 +99,35 @@ public class MobileUtilities {
                 .perform();
     }
 
-    private String getCurrentActivity() {
+    public void meSendKeys(WebElement element, String text, boolean clearFirst) {
+        meElementIsDisplayed(element);
+        if (clearFirst) meTap(element);
+        element.sendKeys(text);
+    }
+
+    public void mePressKeys(AndroidKey androidKey) {
         AndroidDriver androidDriver = (AndroidDriver) driver;
-        return androidDriver.currentActivity();
+        androidDriver.pressKey(new KeyEvent(androidKey));
+    }
+
+    public void mePressKeysWithFlags(AndroidKey androidKey) {
+        AndroidDriver androidDriver = (AndroidDriver) driver;
+        androidDriver.pressKey(new KeyEvent(androidKey)
+                .withFlag(KeyEventFlag.SOFT_KEYBOARD)
+                .withFlag(KeyEventFlag.KEEP_TOUCH_MODE)
+                .withFlag(KeyEventFlag.EDITOR_ACTION));
+    }
+
+    public void meLongPressKeys(AndroidKey androidKey) {
+        AndroidDriver androidDriver = (AndroidDriver) driver;
+        androidDriver.longPressKey(new KeyEvent(androidKey));
+    }
+
+    public void meLongPressKeysWithFlags(AndroidKey androidKey) {
+        AndroidDriver androidDriver = (AndroidDriver) driver;
+        androidDriver.longPressKey(new KeyEvent(androidKey)
+                .withFlag(KeyEventFlag.SOFT_KEYBOARD)
+                .withFlag(KeyEventFlag.KEEP_TOUCH_MODE)
+                .withFlag(KeyEventFlag.EDITOR_ACTION));
     }
 }
