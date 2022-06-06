@@ -1,16 +1,15 @@
 package driversManager;
 
 import dataProviders.ConfigReader;
+import driversManager.utils.DateUtilities;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
 import managers.FileReaderMng;
-import utils.DateUtilities;
 
 import java.io.File;
 
 public class AppiumServer {
-    //    private static AppiumDriverLocalService appiumServer = AppiumDriverLocalService.buildDefaultService();
     public static AppiumDriverLocalService appiumServer;
 
     public static void start() {
@@ -20,7 +19,7 @@ public class AppiumServer {
         String logFile = System.getProperty("user.dir") + "/target/logs/logServer" + dateName + ".txt";
 
         appiumServer = AppiumDriverLocalService.buildService(
-                new AppiumServiceBuilder().withIPAddress(config.getAppiumServer()).usingPort(4723)//.usingAnyFreePort()
+                new AppiumServiceBuilder().withIPAddress(config.getAppiumServer()).usingAnyFreePort()
                         .withLogFile(new File(logFile))
                         .withArgument(GeneralServerFlag.LOCAL_TIMEZONE)
                         .withArgument(() -> "--base-path", "/wd/")

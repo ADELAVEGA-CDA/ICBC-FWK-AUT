@@ -15,6 +15,6 @@ public class SampleDataBaseSteps {
 
     @Given("^al obtener datos de la tabla estudiante$")
     public void obtengo_datos_de_la_tabla_estudiante() throws Throwable {
-        dataBase.load_DataBase();
+        dataBase.selectExampleQuery();
     }
 }

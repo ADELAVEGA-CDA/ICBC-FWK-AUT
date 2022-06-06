@@ -1,6 +1,7 @@
 package stepsDefinition;
 
 import base.GlobalParams;
+import driversManager.utils.DriverUtilities;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -8,7 +9,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import pageObjects.PageSampleScenario;
-import utils.DriverUtilities;
 
 public class StepsSampleScenario {
     protected Logger logger = LogManager.getLogger(String.valueOf(this.getClass()));
@@ -24,32 +24,27 @@ public class StepsSampleScenario {
 
     @When("^hago clic en el menu Personas de la pagina Personas$")
     public void hagoClicEnElMenuPersonasDeLaPaginaPersonas() throws Throwable {
-        //
         home.clicOnPersonas();
     }
 
     @When("^hago clic en la solapa Productos y Servicios de la pagina Personas$")
     public void hagoClicEnLaSolapaProductosYServiciosDeLaPaginaPersonas() throws Throwable {
-        //
         home.clicOnProductos();
     }
 
     @When("^hago clic en la opcion Paquetes de la pagina Personas$")
     public void hagoClicEnLaOpcionPaquetesDeLaPaginaPersonas() throws Throwable {
-        //
         home.clicOnPaquete();
     }
 
     @Then("^accedo a los productos y servicios de la pagina Paquetes$")
     public void accedoALosProductosYServiciosDeLaPaginaPaquetes() throws Throwable {
-        //
         logger.info(driverUtils.getUrl());
         logger.info(driverUtils.getTitle());
     }
 
     @Then("^accedo a \"([^\"]*)\" de la pagina Paquetes$")
     public void accedoADeLaPaginaPaquetes(String title) throws Throwable {
-        //
         Assert.assertEquals(title, driverUtils.getTitle());
         Assert.assertEquals("No coincide los titulos. Verificar. ", title, driverUtils.getTitle());
     }

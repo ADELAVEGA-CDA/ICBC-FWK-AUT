@@ -9,8 +9,6 @@ import org.openqa.selenium.support.ui.Select;
 import java.util.List;
 
 public class PageExampleE2E extends StartPagesMng {
-
-    // FIND BY HOW AND USING
     @FindBy(how = How.CSS, using = ".noo-product-inner")
     private List<WebElement> lstCard;
     @FindBy(how = How.ID, using = "pa_color")
@@ -32,7 +30,6 @@ public class PageExampleE2E extends StartPagesMng {
     @FindBy(how = How.XPATH, using = "//div[@class='noo-woo-thumbnails']/div[2]")
     private WebElement imgSlide2;
 
-    // USE DEFINED ELEMENT
     public void select_Card(int index) {
         lstCard.get(index).click();
     }

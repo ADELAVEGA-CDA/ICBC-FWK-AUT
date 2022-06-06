@@ -1,4 +1,4 @@
-package utils;
+package driversManager.utils;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -7,11 +7,11 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class RandomUtilities {
     public static String generateRandomWords(int wordLength) {
-        Random r = new Random(); // Intialize a Random Number Generator with SysTime as the seed
+        Random r = new Random();
         StringBuilder sb = new StringBuilder(wordLength);
-        for (int i = 0; i < wordLength; i++) { // For each letter in the word
-            char tmp = (char) ('a' + r.nextInt('z' - 'a')); // Generate a letter between a and z
-            sb.append(tmp); // Add it to the String
+        for (int i = 0; i < wordLength; i++) {
+            char tmp = (char) ('a' + r.nextInt('z' - 'a'));
+            sb.append(tmp);
         }
         return sb.toString();
     }

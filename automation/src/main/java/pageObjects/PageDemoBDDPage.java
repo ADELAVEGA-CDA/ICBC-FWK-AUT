@@ -8,8 +8,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
 public class PageDemoBDDPage extends StartPagesMng {
-
-    // Locator elements by tag key:value using PageFactory
     @FindBy(how = How.XPATH, using = "//div[@class='list-group']/a[@id='itemc'][2]")
     private WebElement btnPhone;
     @FindBy(how = How.XPATH, using = "//div[@id='tbodyid']/div[1]/div/a")
@@ -39,7 +37,6 @@ public class PageDemoBDDPage extends StartPagesMng {
     @FindBy(how = How.CLASS_NAME, using = "confirm")
     private WebElement btnOkOrder;
 
-    // Create method over elements
     public void abrir_Portal() {
         driver.get(FileReaderMng.getInstance().getConfigReader().getURLdemo());
     }

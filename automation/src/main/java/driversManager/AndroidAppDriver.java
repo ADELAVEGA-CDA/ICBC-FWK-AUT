@@ -14,7 +14,6 @@ import java.net.URL;
 
 public class AndroidAppDriver {
 
-    private static AndroidDriver driver;
     private static File fileApp;
 
     public static AndroidDriver loadEmulator(boolean deviceApp) throws MalformedURLException {
@@ -23,7 +22,7 @@ public class AndroidAppDriver {
 
         if (deviceApp) {
             File file = new File("configs/apps");
-            fileApp = new File(file, config.getAppNameAndroid()); //set app filepath to /src/[name-of-apk-file]
+            fileApp = new File(file, config.getAppNameAndroid());
         }
 
         DesiredCapabilities cap = new DesiredCapabilities();
@@ -33,14 +32,14 @@ public class AndroidAppDriver {
         cap.setCapability(MobileCapabilityType.AUTOMATION_NAME, "UIAutomator2");
 
         if (deviceApp) {
-            cap.setCapability("app", fileApp.getAbsolutePath()); //set the app to install and use as the one in the filepath specified above
-            cap.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, config.getAppPackageAndroid()); //set the app to install and use as the one in the filepath specified above
-            cap.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, config.getAppActivityAndroid()); //set the app to install and use as the one in the filepath specified above
+            cap.setCapability("app", fileApp.getAbsolutePath());
+            cap.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, config.getAppPackageAndroid());
+            cap.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, config.getAppActivityAndroid());
         } else {
             cap.setCapability(MobileCapabilityType.BROWSER_NAME, "Chrome");
 
             ChromeOptions options = new ChromeOptions();
-            options.addArguments("--no-first-run"); //ensure Chrome skips any first run Welcome screens when launched
+            options.addArguments("--no-first-run");
             options.addArguments("--disable-popup-blocking");
             options.addArguments("--disable-translate");
 
@@ -52,7 +51,6 @@ public class AndroidAppDriver {
         }
 
         String appiumServer = AppiumServer.appiumServer.getUrl().toString();
-        driver = new AndroidDriver(new URL(appiumServer), cap); //set the AndroidDriver to an Appium session with the above DesiredCapabilities
-        return driver;
+        return new AndroidDriver(new URL(appiumServer), cap);
     }
 }

@@ -1,4 +1,4 @@
-package utils;
+package driversManager.utils;
 
 import context.TestContext;
 import io.appium.java_client.AppiumDriver;

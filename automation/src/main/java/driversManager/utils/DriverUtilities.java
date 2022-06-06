@@ -1,4 +1,4 @@
-package utils;
+package driversManager.utils;
 
 import context.TestContext;
 import io.appium.java_client.android.AndroidDriver;
@@ -10,7 +10,7 @@ public class DriverUtilities {
     public DriverUtilities() {
         driver = TestContext.getWebDrvMng().getDriver();
     }
-    
+
     public String getCurrentAndroidActivity() {
         AndroidDriver androidDriver = (AndroidDriver) driver;
         return androidDriver.currentActivity();

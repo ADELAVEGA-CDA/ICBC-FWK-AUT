@@ -1,8 +1,8 @@
 package pageObjects.api;
 
-import api.ApiCaller;
 import api.BaseApiPage;
 import api.pojo.AuthorizationRequest;
+import api.utils.ApiCaller;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import org.junit.Assert;
@@ -54,25 +54,13 @@ public class PageApiExample extends BaseApiPage {
     public void DeleteBook() {
         apiCaller.url = "/BookStore/v1/Books";
 
-//        Map<String, String> header = new HashMap<>();
-//        header.put("Authorization", "Bearer " + token);
-//        header.put("Content-Type", "application/json");
-//        apiCaller.setHeaders(header);
-
         apiCaller.bodyString = "{ \"isbn\": \"" + bookId + "\", \"userId\": \"" + USER_ID + "\"}";
         apiCaller.deleteWithJsonBody();
     }
 
     public void BookIsRemoved() {
         apiCaller.url = "/Account/v1/User/" + USER_ID;
-
         response = apiCaller.get();
-
-//        Map<String, String> header = new HashMap<>();
-//        header.put("Authorization", "Bearer " + token);
-//        header.put("Content-Type", "application/json");
-//        apiCaller.setHeaders(header);
-
         jsonString = response.asString();
     }
 

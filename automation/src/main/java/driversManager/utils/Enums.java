@@ -1,4 +1,4 @@
-package utils;
+package driversManager.utils;
 
 public class Enums {
     public enum DIRECTION {
@@ -23,7 +23,9 @@ public class Enums {
 
         public int code;
 
-        StatusCode(int code){ this.code = code; }
+        StatusCode(int code) {
+            this.code = code;
+        }
     }
 
     public enum XpathAxes {
@@ -43,6 +45,8 @@ public class Enums {
 
         public String text;
 
-        XpathAxes(String value) {this.text = value;}
+        XpathAxes(String value) {
+            this.text = value;
+        }
     }
 }

@@ -1,12 +1,12 @@
 package pageObjects.mobile;
 
+import driversManager.utils.DriverUtilities;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import managers.StartPagesMng;
 import org.junit.Assert;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import utils.DriverUtilities;
 
 import java.util.List;
 

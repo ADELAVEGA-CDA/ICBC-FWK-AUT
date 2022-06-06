@@ -7,7 +7,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
 public class PageSampleScenarioOutline extends StartPagesMng {
-    // FIND BY HOW AND USING
     @FindBy(how = How.CSS, using = ".cssValue")
     private WebElement tbxName_check;
     @FindBy(how = How.XPATH, using = "//*[@ID='idValue']")
@@ -35,7 +34,6 @@ public class PageSampleScenarioOutline extends StartPagesMng {
     @FindBy(how = How.CSS, using = ".po-hea__submenu-link")
     private WebElement btnSueldo;
 
-    // USE DEFINED ELEMENT
     public void enterName(String name) {
         tbxName_check.sendKeys(name);
     }

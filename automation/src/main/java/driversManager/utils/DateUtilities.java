@@ -1,4 +1,4 @@
-package utils;
+package driversManager.utils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -31,10 +31,7 @@ public class DateUtilities {
     }
 
     public Long getTimestampCurrentTime() {
-        // get current date
         Date currentDate = new Date();
-
-        // return current time timestamp
         return currentDate.getTime();
     }
 
@@ -46,37 +43,25 @@ public class DateUtilities {
     }
 
     public Long getTimestampTomorrow() {
-        // get a calendar instance, which defaults to "now"
         Calendar calendar = Calendar.getInstance();
-
-        // add one day to the date/calendar
         calendar.add(Calendar.DAY_OF_YEAR, 1);
 
-        // return tomorrow timestamp
         Date tomorrow = calendar.getTime();
         return tomorrow.getTime();
     }
 
     public Long getTimestampNextHour() {
-        // get a calendar instance, which defaults to "now"
         Calendar calendar = Calendar.getInstance();
-
-        // add one hour to the date/calendar
         calendar.add(Calendar.HOUR_OF_DAY, 1);
 
-        // return timestamp
         Date currentTimeMoreHour = calendar.getTime();
         return currentTimeMoreHour.getTime();
     }
 
     public Long getTimestampYesterday() {
-        // get a calendar instance, which defaults to "now"
         Calendar calendar = Calendar.getInstance();
-
-        // remove one day to the date/calendar
         calendar.add(Calendar.DAY_OF_YEAR, -1);
 
-        // return tomorrow timestamp
         Date tomorrow = calendar.getTime();
         return tomorrow.getTime();
     }

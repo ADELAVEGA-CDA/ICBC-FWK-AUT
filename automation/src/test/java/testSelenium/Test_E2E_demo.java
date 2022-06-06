@@ -15,7 +15,6 @@ public class Test_E2E_demo {
     protected static Logger logger = LogManager.getLogger(String.valueOf(Test_E2E_demo.class));
 
     public static void main(String[] args) {
-        // DATOS
         String baseURL = "https://bookstore.toolsqa.com";
         String nombre = "TOOLSQA-Test";
         String pass = "Test@@123";
@@ -25,7 +24,6 @@ public class Test_E2E_demo {
         String path_Book = "/bookStore/v1/Books";
         logger.info("Datos: " + baseURL + "\n - " + nombre + "\n - " + pass);
 
-        // Conexion
         RestAssured.baseURI = baseURL;
         RequestSpecification solicitud = RestAssured.given();
 
@@ -47,7 +45,6 @@ public class Test_E2E_demo {
         Assert.assertTrue(jsonDatos.contains("token"));
         String token = JsonPath.from(jsonDatos).get("token");
         logger.info(token);
-
 
         logger.info("\n Solicitud GET para consulta \n");
         respuesta = solicitud.get(path_Book);
@@ -71,7 +68,5 @@ public class Test_E2E_demo {
         respuesta = solicitud.body(Datos_2).post(path_Book);
 
         logger.info(respuesta.getStatusCode() + "\n " + respuesta.getStatusLine() + "\n " + respuesta.getContentType() + "\n " + respuesta.getBody());
-
     }
-
 }

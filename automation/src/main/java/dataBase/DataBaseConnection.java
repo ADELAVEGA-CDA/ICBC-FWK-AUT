@@ -1,6 +1,9 @@
 package dataBase;
 
+import enums.SQLDriversType;
 import managers.FileReaderMng;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 
 import java.sql.Connection;
@@ -11,29 +14,43 @@ import java.util.List;
 import java.util.Map;
 
 public class DataBaseConnection {
-    // Connection object
+    protected Logger log = LogManager.getLogger(String.valueOf(this.getClass()));
+
     static Connection con = null;
-    // Statement object
     private static Statement stmt;
-    // Constant for Database URL
+    public static SQLDriversType DB_DRIVER;
     public static String DB_URL;
-    // Constant for Database Username
     public static String DB_USER;
-    // Constant for Database Password
     public static String DB_PASSWORD;
 
     public DataBaseConnection() {
+        String className = "";
+        DB_DRIVER = FileReaderMng.getInstance().getConfigReader().getDBDriver();
+        switch (DB_DRIVER) {
+            case MYSQL:
+                className = "com.mysql.cj.jdbc.Driver";
+                break;
+            case SQLSERVER:
+                className = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+                break;
+            case POSTGRES:
+                className = "org.postgresql.Driver";
+                break;
+            case ORACLE:
+                className = "oracle.jdbc.driver.OracleDriver";
+                break;
+            default:
+                className = "com.mysql.cj.jdbc.Driver";
+        }
+        
         DB_URL = FileReaderMng.getInstance().getConfigReader().getDBURL();
         DB_USER = FileReaderMng.getInstance().getConfigReader().getDBUser();
         DB_PASSWORD = FileReaderMng.getInstance().getConfigReader().getDBPassword();
 
         try {
-            // Make the database connection
-            String dbClass = "com.mysql.cj.jdbc.Driver";
-            Class.forName(dbClass).newInstance();
-            // Get connection to DB
+            Class.forName(className);
+
             Connection con = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-            // Statement object to send the SQL statement to the Database
             stmt = con.createStatement();
         } catch (Exception e) {
             e.printStackTrace();
@@ -42,20 +59,33 @@ public class DataBaseConnection {
 
     public List<Map<String, ?>> getDataFromDataBase(String query) {
         try {
-            // Get the contents of userinfo table from DB
             ResultSet res = stmt.executeQuery(query);
-            // Return the result in a list with all the records
-            List<Map<String, ?>> lista = DataBaseUtils.rsToList(res);
-            return lista;
+            List<Map<String, ?>> list = DataBaseUtils.rsToList(res);
+
+            res.close();
+            stmt.close();
+            return list;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
+    public void modifyDataFromDataBase(String query) {
+        try {
+            int rowsUpdated = stmt.executeUpdate(query);
+            if (rowsUpdated > 0) {
+                log.info("DataBase was updated successfully!");
+            }
+
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @After
     public void tearDown() throws Exception {
-        // Close DB connection
         if (con != null) {
             con.close();
         }

@@ -11,7 +11,6 @@ import java.net.URL;
 
 public class IOSAppDriver {
 
-    private static IOSDriver driver;
     private static File fileApp;
 
     public static IOSDriver loadIphoneEmulator(boolean deviceApp) throws MalformedURLException {
@@ -20,22 +19,21 @@ public class IOSAppDriver {
 
         if (deviceApp) {
             File file = new File("src");
-            fileApp = new File(file, config.getAppNameIphone()); //set app filepath to /src/[name-of-app-file]
+            fileApp = new File(file, config.getAppNameIphone());
         }
 
         DesiredCapabilities cap = new DesiredCapabilities();
-        cap.setCapability("platformVersion", config.getDeviceVersionIphone()); //set the iOS simulator version to be launched
-        cap.setCapability("deviceName", config.getDeviceNameIphone()); //set the name of the device to be launched (should be same as AVD)
-        cap.setCapability("automationName", "XCUITest"); //set the automation engine to use as XCUITest
+        cap.setCapability("platformVersion", config.getDeviceVersionIphone());
+        cap.setCapability("deviceName", config.getDeviceNameIphone());
+        cap.setCapability("automationName", "XCUITest");
 
         if (deviceApp) {
-            cap.setCapability("automationName", "XCUITest"); //set the automation engine to use as XCUITest
-            cap.setCapability("app", fileApp.getAbsolutePath()); //set the app to install and use as the one in the filepath specified above
+            cap.setCapability("automationName", "XCUITest");
+            cap.setCapability("app", fileApp.getAbsolutePath());
         } else
-            cap.setBrowserName("Safari"); //set the mobile browser that should be launched on the device
+            cap.setBrowserName("Safari");
 
         String appiumServer = AppiumServer.appiumServer.getUrl().toString();
-        driver = new IOSDriver(new URL(appiumServer), cap); //set the IOSDriver to an Appium session with the above DesiredCapabilities
-        return driver;
+        return new IOSDriver(new URL(appiumServer), cap);
     }
 }

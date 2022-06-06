@@ -1,29 +1,40 @@
 package stepsDefinition;
 
 import context.TestContext;
+import driversManager.utils.DateUtilities;
+import enums.DriversType;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import managers.FileReaderMng;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.EnumUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import utils.DateUtilities;
-import utils.FileUtilities;
 
 import java.io.File;
 import java.io.IOException;
 
 public class Hooks {
-    private static final Logger logger = LogManager.getLogger(String.valueOf(FileUtilities.class));
+    protected Logger log = LogManager.getLogger(String.valueOf(this.getClass()));
     TestContext testContext;
 
     @Before
-    public void beforeSteps() {
+    public void beforeSteps(Scenario scenario) {
         testContext = new TestContext();
-        TestContext.getWebDrvMng().setDriver();
+
+        String tag = scenario.getSourceTagNames().iterator().next();
+        String tagFormatted = tag.toUpperCase().substring(1);
+
+        if (EnumUtils.isValidEnum(DriversType.class, tagFormatted)) {
+            DriversType tagType = DriversType.valueOf(tagFormatted);
+            TestContext.getWebDrvMng().setDriver(tagType);
+        } else {
+            DriversType brwType = FileReaderMng.getInstance().getConfigReader().getBrowser();
+            TestContext.getWebDrvMng().setDriver(brwType);
+        }
     }
 
     @After(order = 1)
@@ -47,9 +58,7 @@ public class Hooks {
             FileUtils.copyFile(srcFile, destFile);
             scenario.attach(srcByte, "image/png", scenario.getName());
 
-//            Allure.addAttachment(scenario.getName(), "image/png", new ByteArrayInputStream(srcByte), "png");
-
-            logger.info("ScreenCapture in: " + destFile);
+            log.info("ScreenCapture in: " + destFile);
         }
     }
 

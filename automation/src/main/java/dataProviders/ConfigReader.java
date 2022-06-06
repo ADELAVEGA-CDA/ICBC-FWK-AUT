@@ -2,6 +2,7 @@ package dataProviders;
 
 import enums.DriversType;
 import enums.Environment;
+import enums.SQLDriversType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,14 +15,13 @@ import java.util.Properties;
 public class ConfigReader {
     protected Logger logger = LogManager.getLogger(String.valueOf(this.getClass()));
 
-    private Properties property;
-    private final String pathFile = "configs\\config.properties";
-    private String message = "__Error_with_the_file_or_the_value__Verify__>>_";
+    private final Properties property;
+    private final String message = "__Error_with_the_file_or_the_value__Verify__>>_";
 
-    // OPEN FILE
     public ConfigReader() {
         BufferedReader lector;
         try {
+            String pathFile = "configs\\config.properties";
             lector = new BufferedReader(new FileReader(pathFile));
             property = new Properties();
             try {
@@ -36,7 +36,6 @@ public class ConfigReader {
         }
     }
 
-    // GET DATA FROM FILE
     public String getDriverPath() {
         String rutaCHR = property.getProperty("driverPath");
         if (rutaCHR != null) return rutaCHR;
@@ -56,8 +55,8 @@ public class ConfigReader {
     }
 
     public Boolean getBrowserSize() {
-        String tamaño = property.getProperty("maxWin");
-        if (tamaño != null) return Boolean.valueOf(tamaño);
+        String size = property.getProperty("maxWin");
+        if (size != null) return Boolean.valueOf(size);
         return true;
     }
 
@@ -109,7 +108,7 @@ public class ConfigReader {
     }
 
     public String getSceenshotPath() {
-        String screenshotPath = property.getProperty("reportScreenshotPath");
+        String screenshotPath = property.getProperty("screenshotPath");
         if (screenshotPath != null) return screenshotPath;
         else throw new RuntimeException(message + "_error_reportScreenshotPath_not_specified__");
     }
@@ -178,6 +177,15 @@ public class ConfigReader {
         String deviceVersion = property.getProperty("deviceVersionIphone");
         if (deviceVersion != null) return deviceVersion;
         else throw new RuntimeException("Err. deviceVersionIphone is empty or not defined.");
+    }
+
+    public SQLDriversType getDBDriver() {
+        String driverType = property.getProperty("browser");
+        if (driverType.equalsIgnoreCase("mysql")) return SQLDriversType.MYSQL;
+        else if (driverType.equalsIgnoreCase("sqlserver")) return SQLDriversType.SQLSERVER;
+        else if (driverType.equalsIgnoreCase("postgres")) return SQLDriversType.POSTGRES;
+        else if (driverType.equalsIgnoreCase("oracle")) return SQLDriversType.ORACLE;
+        else throw new RuntimeException(message + "_error_with_the_sql_driver_type__");
     }
 
     public String getDBURL() {

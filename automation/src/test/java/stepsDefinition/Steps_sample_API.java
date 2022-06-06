@@ -28,26 +28,22 @@ public class Steps_sample_API {
 
     @Given("^accedo a la url \"([^\"]*)\" de autorización$")
     public void accedo_a_la_url_de_autorización(String _url) throws Throwable {
-        //
         param.setURL(_url);
     }
 
     @Given("^tengo el path de la api \"([^\"]*)\" de autorización$")
     public void tengo_el_path_de_la_api_de_autorización(String _api) throws Throwable {
-        //
         param.setAPI(_api);
     }
 
     @When("^indico los datos para \"([^\"]*)\" y \"([^\"]*)\" del body de autorización$")
     public void indico_los_datos_para_y_del_body_de_autorización(String _user, String _pass) throws Throwable {
-        //
         param.setString(_user);
         param.setStringB(_pass);
     }
 
     @Then("^obtengo el codigo (\\d+) como respuesta para autorización$")
     public void obtengo_el_codigo_como_respuesta_para_autorización(int _code) throws Throwable {
-        //
         rest.responseCode();
     }
 

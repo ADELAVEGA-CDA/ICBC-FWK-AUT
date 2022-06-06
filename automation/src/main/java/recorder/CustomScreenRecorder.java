@@ -25,7 +25,6 @@ public class CustomScreenRecorder extends ScreenRecorder {
 
     public CustomScreenRecorder(File movieFolder) throws IOException, AWTException {
         super(GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration(),
-                //new Rectangle(0, 0, Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height),
                 GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration().getBounds(),
                 new Format(MediaTypeKey, MediaType.FILE, MimeTypeKey, MIME_AVI),
                 new Format(MediaTypeKey, MediaType.VIDEO, EncodingKey, ENCODING_AVI_TECHSMITH_SCREEN_CAPTURE, CompressorNameKey, ENCODING_AVI_TECHSMITH_SCREEN_CAPTURE, DepthKey, 24, FrameRateKey,
@@ -52,7 +51,7 @@ public class CustomScreenRecorder extends ScreenRecorder {
         String extension = "";
         String name = "";
 
-        int idxOfDot = fileName.lastIndexOf('.'); // Get the last index of . to separate extension
+        int idxOfDot = fileName.lastIndexOf('.');
         extension = fileName.substring(idxOfDot + 1);
         name = fileName.substring(0, idxOfDot);
 

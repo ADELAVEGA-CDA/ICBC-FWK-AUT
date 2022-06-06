@@ -1,3 +1,4 @@
+@CHROME
 Feature: Ingresar al homebanking personas a buscar un producto en los ofrecidos por ICBC
   Como un usario individuo
   Quiero realizar una busqueda de un producto

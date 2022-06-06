@@ -1,4 +1,4 @@
-package api;
+package api.utils;
 
 import io.restassured.RestAssured;
 import io.restassured.config.RestAssuredConfig;
@@ -10,11 +10,6 @@ import org.json.JSONObject;
 import static io.restassured.RestAssured.given;
 
 public class ApiCaller extends ApiBaseCaller {
-    private static String validRequest = "{\n" +
-            "  \"username\": \"test-api-user\",\n" +
-            "  \"email\": \"test-api-user@email.com\",\n" +
-            "  \"password\": \"Passw0rd123!\",\n" +
-            "  \"name\": \"Test Api-User\" \n}";
 
     public Response getWithCookies() {
         String requestMethod = "GET";
@@ -23,7 +18,6 @@ public class ApiCaller extends ApiBaseCaller {
 
         RestAssuredConfig config = useCurlLogging();
 
-        // Print Request
         printRequest(requestMethod);
 
         response = given()
@@ -37,7 +31,6 @@ public class ApiCaller extends ApiBaseCaller {
                 .extract()
                 .response();
 
-        // Print Response
         printResponse();
 
         return response;
@@ -50,9 +43,13 @@ public class ApiCaller extends ApiBaseCaller {
 
         RestAssuredConfig config = useCurlLogging();
 
-        // Print Request
         printRequest(requestMethod);
 
+        String validRequest = "{\n" +
+                "  \"username\": \"test-api-user\",\n" +
+                "  \"email\": \"test-api-user@email.com\",\n" +
+                "  \"password\": \"Passw0rd123!\",\n" +
+                "  \"name\": \"Test Api-User\" \n}";
         response = given()
                 .auth()
                 .preemptive()
@@ -63,7 +60,6 @@ public class ApiCaller extends ApiBaseCaller {
                 .post(url)
                 .then().extract().response();
 
-        // Print Response
         printResponse();
 
         return response;
@@ -76,24 +72,19 @@ public class ApiCaller extends ApiBaseCaller {
 
         RestAssuredConfig config = useCurlLogging();
 
-        // Print Request
         printRequest(requestMethod);
 
         response = given()
                 .config(config)
                 .cookies(cookies)
-                //.headers("User-Agent", userAgent)
                 .headers(headers)
                 .body(bodyString)
                 .when()
                 .post(url)
                 .then()
-                //.contentType(ContentType.JSON)
-                //.statusCode(200)
                 .extract()
                 .response();
 
-        // Print Response
         printResponse();
 
         return response;
@@ -106,7 +97,6 @@ public class ApiCaller extends ApiBaseCaller {
 
         RestAssuredConfig config = useCurlLogging();
 
-        // Print Request
         printRequest(requestMethod);
 
         response = given()
@@ -119,7 +109,6 @@ public class ApiCaller extends ApiBaseCaller {
                 .extract()
                 .response();
 
-        // Print Response
         printResponse();
 
         return response;
@@ -132,7 +121,6 @@ public class ApiCaller extends ApiBaseCaller {
 
         RestAssuredConfig config = useCurlLogging();
 
-        // Print Request
         printRequest(requestMethod);
 
         response = given()
@@ -145,7 +133,6 @@ public class ApiCaller extends ApiBaseCaller {
                 .extract()
                 .response();
 
-        // Print Response
         printResponse();
 
         return response;
@@ -157,19 +144,14 @@ public class ApiCaller extends ApiBaseCaller {
 
         printRequest(requestMethod);
 
-//        JSONObject requestParams = new JSONObject();
-//        requestParams.put("UserName", user);
-//        requestParams.put("Password", pass);
-
         response = given()
-                .header("Content-Type", "application/json") // Add the Json to the body of the request
+                .header("Content-Type", "application/json")
                 .body(requestParams.toString(1))
                 .post(url)
                 .then()
                 .extract()
                 .response();
 
-        // Print Response
         printResponse();
 
         return response;
@@ -182,7 +164,6 @@ public class ApiCaller extends ApiBaseCaller {
 
         RestAssuredConfig config = this.useCurlLogging();
 
-        // Print Request
         printRequest(requestMethod);
 
         this.response = given()
@@ -195,15 +176,14 @@ public class ApiCaller extends ApiBaseCaller {
                 .extract()
                 .response();
 
-        // Print Response
         printResponse();
 
         return response;
     }
 
     public void ConnectWithProxy() {
-        RestAssured.useRelaxedHTTPSValidation(); //ignorar SSL
-        RestAssured.proxy("localhost");//añadir un proxy
-        RestAssured.proxy(8888); // añadir un puerto al proxy
+        RestAssured.useRelaxedHTTPSValidation();
+        RestAssured.proxy("localhost");
+        RestAssured.proxy(8888);
     }
 }

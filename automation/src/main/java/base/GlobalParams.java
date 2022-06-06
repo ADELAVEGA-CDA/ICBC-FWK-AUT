@@ -11,12 +11,10 @@ public class GlobalParams {
     private Response _response;
     private Boolean blnFlag = true;
 
-    // DATA OUTPUT
     public String getString() {
         return (String) TestContext.getScenarioContext().getContext(Context.DATA_INFO);
     }
 
-    // DATA INPUT
     public void setString(String _string) {
         TestContext.getScenarioContext().setContext(Context.DATA_INFO, _string);
     }

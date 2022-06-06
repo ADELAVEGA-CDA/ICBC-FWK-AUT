@@ -1,13 +1,12 @@
 package pageObjects;
 
+import driversManager.utils.WebElementUtilities;
 import managers.StartPagesMng;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-import utils.WebElementUtilities;
 
 public class PageE2EScenario extends StartPagesMng {
-    // FIND BY HOW AND USING
     @FindBy(how = How.XPATH, using = "(//div[contains(@class, 'avatar')])[1]")
     private WebElement btnElements;
     @FindBy(how = How.XPATH, using = "//li/span[text()='Upload and Download']")
@@ -23,7 +22,6 @@ public class PageE2EScenario extends StartPagesMng {
         webElementUtils = new WebElementUtilities();
     }
 
-    // USE DEFINED ELEMENT
     public void SeccionElementos() {
         webElementUtils.wdScrollToElement(btnElements);
         btnElements.click();

@@ -19,7 +19,6 @@ public class BrowsersMng {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    private static DriversType brwType;
     private static Environment ambType;
     private static String webDrvPath;
     private static long waitTime;
@@ -27,23 +26,22 @@ public class BrowsersMng {
     private static boolean deviceApp;
 
     public BrowsersMng() {
-        brwType = FileReaderMng.getInstance().getConfigReader().getBrowser();
         ambType = FileReaderMng.getInstance().getConfigReader().getAmbiente();
         webDrvPath = FileReaderMng.getInstance().getConfigReader().getDriverPath();
         deviceApp = FileReaderMng.getInstance().getConfigReader().getDeviceApp();
         waitTime = FileReaderMng.getInstance().getConfigReader().getWaitTime();
     }
 
-    public void setDriver() {
+    public void setDriver(DriversType brwType) {
         if (ambType == Environment.LOCAL) {
-            initDriver();
+            initDriver(brwType);
             logger.info("__getDrv__local_environment__");
         } else if (ambType == Environment.LOCAL_API) logger.info("__getDrv__api_environment__local_api__");
         else if (ambType == Environment.LOCAL_HEADLESS) {
-            initDriver();
+            initDriver(brwType);
             logger.info("__getDrv__local_headless_environment__");
         } else if (ambType == Environment.REMOTO) {
-            initDriver();
+            initDriver(brwType);
             logger.info("__getDrv__remote_environment__");
         } else if (ambType == Environment.REMOTO_API) logger.info("__getDrv__api_environment__remoto_api__");
         else if (ambType == Environment.REMOTO_HEADLESS) {
@@ -51,18 +49,17 @@ public class BrowsersMng {
         } else throw new RuntimeException("__error_getDrv_Verify__");
     }
 
-    // INIT DRIVERS
-    private void initDriver() {
+    private void initDriver(DriversType brwType) {
         switch (ambType) {
             case LOCAL:
-                createLocal(false);
+                createLocal(brwType, false);
                 logger.info("__initDrv__create_local_drv__");
                 break;
             case LOCAL_API:
                 logger.info("__create_Drv__local_api__");
                 break;
             case LOCAL_HEADLESS:
-                createLocal(true);
+                createLocal(brwType, true);
                 logger.info("__create_Drv__local_headless__");
                 break;
             case REMOTO:
@@ -84,7 +81,7 @@ public class BrowsersMng {
         throw new RuntimeException("__verify__createRemoto_WebDriver__");
     }
 
-    private void createLocal(boolean headless) {
+    private void createLocal(DriversType brwType, boolean headless) {
         List<String> args = Arrays.asList("--ignore-certificate-errors");
 
         switch (brwType) {
@@ -142,8 +139,6 @@ public class BrowsersMng {
         wait = new WebDriverWait(driver, Duration.ofSeconds(waitTime));
     }
 
-    //GETTERS
-
     public WebDriver getDriver() {
         return driver;
     }
@@ -167,7 +162,6 @@ public class BrowsersMng {
             try {
                 if (driver != null)
                     driver.quit();
-                //driver.close();
 
                 if (device)
                     AppiumServer.stop();

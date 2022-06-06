@@ -1,4 +1,4 @@
-package utils;
+package driversManager.utils;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -12,18 +12,15 @@ public class StringUtilities {
     }
 
     public static String getStringFirstWords(String string, int num) {
-        String [] arr = string.split("\\s+");
-        // splits words & assign to the arr[]  ex : arr[0] -> Copying ,arr[1] -> first
+        String[] arr = string.split("\\s+");
 
-        StringBuilder nWords= new StringBuilder();
+        StringBuilder nWords = new StringBuilder();
 
-        // use array length if smaller than num
         if (arr.length < num) {
             num = arr.length;
         }
 
-        // concatenating number of words that you required
-        for(int i=0; i<num ; i++){
+        for (int i = 0; i < num; i++) {
             if (i == 0) {
                 nWords.append(arr[i]);
             } else {
@@ -34,7 +31,7 @@ public class StringUtilities {
     }
 
     public static String getStringReplaceSpaces(String string) {
-        return string.replaceAll("\\s","%20");
+        return string.replaceAll("\\s", "%20");
     }
 
     public static String getStringReplaceAccents(String string) {
@@ -44,12 +41,11 @@ public class StringUtilities {
     public static String getStringFromList(List<String> list) {
         StringBuilder sb = new StringBuilder();
         for (String str : list) {
-            // Discard if null
             if (str == null) {
                 continue;
             }
-            // Add to string
-            if (sb.toString().isEmpty()){
+
+            if (sb.toString().isEmpty()) {
                 sb.append(str);
             } else {
                 sb.append(",").append(str);

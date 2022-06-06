@@ -22,12 +22,10 @@ public class GlobalRest {
     }
 
     public Response response() {
-        // PARAMS CONECTION
-        logger.info(param.getURL());
         baseURI = param.getURL();
+        logger.info(param.getURL());
         _request = given();
 
-        // SET DATA HEADER
         int matrixLenght = param.getMatrixLenght();
         if (matrixLenght == 0) {
             blnFlag = false;
@@ -39,7 +37,6 @@ public class GlobalRest {
             }
         }
 
-        // SET PARAMETERS: BODY OR NOT, PARAM TO API OR NOT
         if (!blnFlag) {
             logger.warn(">> Flag isn't true <<");
             return _response;
@@ -55,7 +52,6 @@ public class GlobalRest {
 
         logger.info(">> Response: " + _response);
 
-        // RETURN RESPONSE
         return _response;
     }
 

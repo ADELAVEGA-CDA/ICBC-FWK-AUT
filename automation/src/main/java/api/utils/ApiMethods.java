@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ApiMethods {
-
     public static Map<String, String> getBaseHeaders(String clientId, String contentType, String deviceId,
                                                      String applicationId) {
         Map<String, String> headers = new HashMap<>();

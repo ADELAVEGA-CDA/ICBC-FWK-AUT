@@ -1,4 +1,4 @@
-package utils;
+package driversManager.utils;
 
 import context.TestContext;
 import io.appium.java_client.AppiumDriver;
@@ -19,10 +19,6 @@ public class MobileExtensions {
         driver = (AppiumDriver) TestContext.getWebDrvMng().getDriver();
         wait = TestContext.getWebDrvMng().getWait();
     }
-
-    //me = Mobile Elements Commands (android and ios)
-    //es = Espresso Specific Mobile Commands
-    //xc = iOS Specific Gestures (XCUITest)
 
     public void meSwipe(String direction, WebElement element) {
         Map<String, Object> params = new HashMap<>();

@@ -42,35 +42,4 @@ public class StartPagesMng {
             }
         }
     }
-
-//    private static <T> T initElements(WebDriver driver, Class<T> pageClassToProxy) {
-//        T page = instantiatePage(driver, pageClassToProxy);
-//        PageFactory.initElements(new AppiumFieldDecorator(driver, ofSeconds(15)), page);
-//        return page;
-//    }
-//
-//    private static <T> T instantiatePage(WebDriver driver, Class<T> pageClassToProxy) {
-//        try {
-//            try {
-//                Constructor<T> constructor = pageClassToProxy.getConstructor(WebDriver.class);
-//                return constructor.newInstance(driver);
-//            } catch (NoSuchMethodException var3) {
-//                return pageClassToProxy.newInstance();
-//            }
-//        } catch (InstantiationException | IllegalAccessException | InvocationTargetException var4) {
-//            throw new RuntimeException(var4);
-//        }
-//    }
-
-//    // INIT BASE
-//    private GlobalParams params;
-//    private GlobalRest rest;
-//
-//    public GlobalParams getGlobalParams() {
-//        return (params == null) ? params = new GlobalParams() : params;
-//    }
-//
-//    public GlobalRest getGlobalRest() {
-//        return (rest == null) ? rest = new GlobalRest() : rest;
-//    }
 }

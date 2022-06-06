@@ -1,4 +1,4 @@
-package utils;
+package driversManager.utils;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -9,14 +9,12 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.StringTokenizer;
 
 public class FileUtilities {
     private static final Logger logger = LogManager.getLogger(String.valueOf(FileUtilities.class));
@@ -45,6 +43,36 @@ public class FileUtilities {
     public static String readFile(String filePath) throws IOException {
         logger.info("Reading contents of '" + filePath + "' file");
         return Files.readString(Paths.get(filePath), StandardCharsets.US_ASCII);
+    }
+
+    public static String[][] readCsvFile(String filePath) throws IOException {
+        logger.info("Reading contents of '" + filePath + "' csv file");
+        String[][] csvContent = new String[0][];
+
+        File file = new File(filePath);
+        if (!file.exists()) {
+            logger.info("File doesn't exists");
+            return csvContent;
+        }
+
+        BufferedReader bufRdr;
+        bufRdr = new BufferedReader(new FileReader(file));
+
+        String line = null;
+        int row = 0;
+
+        while ((line = bufRdr.readLine()) != null) {
+            StringTokenizer st = new StringTokenizer(line, ",");
+            int col = 0;
+            while (st.hasMoreTokens()) {
+                csvContent[row][col] = st.nextToken();
+                col++;
+            }
+            row++;
+        }
+
+        bufRdr.close();
+        return csvContent;
     }
 
     public static void updateFile(String filePath, String text) {
