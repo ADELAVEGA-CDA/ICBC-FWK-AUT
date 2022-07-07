@@ -4,6 +4,7 @@ import context.TestContext;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -17,6 +18,7 @@ public class StartPagesMng {
     protected boolean isDevice;
     protected boolean isDeviceApp;
     protected WebDriverWait wait;
+    protected JavascriptExecutor js;
 
     public StartPagesMng() {
         if (driver == null) {
@@ -26,6 +28,8 @@ public class StartPagesMng {
             wait = TestContext.getWebDrvMng().getWait();
             isDevice = TestContext.getWebDrvMng().isDevice();
             isDeviceApp = TestContext.getWebDrvMng().isDeviceApp();
+
+            js = (JavascriptExecutor) driver;
 
             if (isDevice)
                 PageFactory.initElements(new AppiumFieldDecorator(driver, ofSeconds(5)), this);
